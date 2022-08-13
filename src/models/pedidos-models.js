@@ -1,4 +1,4 @@
-import { listarPedidos } from "../DAO/pedidosDAO.js";
+import { listarPedidos, listarPedido } from "../DAO/pedidosDAO.js";
 
 class Pedidos {
     constructor(cliente_id, entregador_id, data_pedido, status_pedido, valor_total, metodo_pagamento){
@@ -14,7 +14,17 @@ class Pedidos {
 export const getPedidos = async () => {
     try {
         const dados = await listarPedidos();
-        if (!dados) throw new Error("Não foi possível encontrar os dados dos pedidos")
+        if (!dados) throw new Error("Não foi possível encontrar os pedidos")
+        return dados
+    } catch (error) {
+        throw error
+    }
+}
+
+export const getPedido = async (id) => {
+    try {
+        const dados = await listarPedido(id);
+        if (!dados) throw new Error("Não foi possível encontrar o pedido")
         return dados
     } catch (error) {
         throw error
