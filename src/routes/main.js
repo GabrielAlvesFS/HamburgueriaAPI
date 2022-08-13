@@ -1,4 +1,5 @@
 import pedidos from "./pedidosRoutes.js";
+import clientes from "./clientesRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -6,7 +7,8 @@ const routes = (app) => {
     })
 
     app.use(
-        pedidos
+        pedidos,
+        clientes
     );
 }
 
