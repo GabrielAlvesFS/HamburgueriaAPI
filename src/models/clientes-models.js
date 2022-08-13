@@ -1,5 +1,5 @@
- import db from "../database/sqlite-db.js"
- import { recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente } from "../DAO/clientesDAO.js"
+
+ import {recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente } from "../DAO/clientesDAO.js"
  
  class ClientesM {
     constructor(id_cliente, cpf, nome, email, telefone, endereco) {
@@ -14,7 +14,7 @@
 
 export const getClientes = async () => {
     try {
-        const dados = await recebeClientes(db)
+        const dados = await recebeClientes()
         if (!dados) throw new Error("Não foi possivel encontrar os dados dos clientes")
         return dados 
     } catch (error) {
@@ -22,9 +22,9 @@ export const getClientes = async () => {
     }
 }
 
-export const getClienteById = async (id_cliente) => {
+export const getClienteById = async (id) => {
     try {
-        const dados = await recebeCliente(db)
+        const dados = await recebeCliente(id)
         if (!dados) throw new Error("Não foi possivel encontrar os dados do cliente")
         return dados 
     } catch (error) {
@@ -34,9 +34,9 @@ export const getClienteById = async (id_cliente) => {
 
 
 
-export const insertCliente = async () => {
+export const insertCliente = async (id) => {
     try {
-        const dados = await insereCliente(db)
+        const dados = await insereCliente(id)
         if (!dados) throw new Error("Não foi possivel inserir dados do cliente")
         return dados 
     } catch (error) {
@@ -44,9 +44,9 @@ export const insertCliente = async () => {
     }
 }
 
-export const updateCliente = async () => {
+export const updateCliente = async (id) => {
     try {
-        const dados = await atualizaCliente(db)
+        const dados = await atualizaCliente(id)
         if (!dados) throw new Error("Não foi possivel atualizar os dados do cliente")
         return dados 
     } catch (error) {
@@ -55,9 +55,9 @@ export const updateCliente = async () => {
 }
 
 
-export const deleteCliente = async () => {
+export const deleteCliente = async (id) => {
     try {
-        const dados = await deletaCliente(db)
+        const dados = await deletaCliente(id)
         if (!dados) throw new Error("Não foi possivel deletar os dados do cliente")
         return dados 
     } catch (error) {
