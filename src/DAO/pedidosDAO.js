@@ -15,6 +15,7 @@ const listarPedidos = () => {
     });
 }
 
+//Função com a query que retorna um pedido especifico
 const listarPedido = (id) => {
     const query = `SELECT * FROM PEDIDOS WHERE ID = ?;`
     return new Promise((resolve, reject) => {
@@ -23,16 +24,13 @@ const listarPedido = (id) => {
                 reject(error)
             } else if ((!rows) || rows.length <= 0) {
                 reject({
-                    "message": 'Usuário não encontrado',
-                    "status": 404,
+                    "message": 'Pedido não encontrado',
+                    "status": 400,
                     "erro": true
                 })
-            } else {resolve({
-                "status": 200,
-                "retorno" : {
-                "dados" : rows
-                }
-            })}
+            } else {
+                resolve(rows)
+            }
         })
     })
 }
