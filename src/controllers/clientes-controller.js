@@ -1,41 +1,69 @@
-import ClientesM from "../models/clientes-models.js"
-import { recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente } from "../DAO/clientesDAO.js"
-
-const clientesC = (app, db) => {
-
-    app.get('/clientes', (req, res) => {
-        recebeClientes(db)
-        .then((sucess) => res.status(200).json(sucess))
-        .catch((erro) => res.sendStatus(400))
-    })
-
-    app.get('/clientes/:id', (req, res) => {
-        recebeCliente(db)
-        .then((sucess) => res.status(200).json(sucess))
-        .catch((erro) => res.sendStatus(400))
-    })
-
-    app.post('/clientes', (req, res) => {
-        const {id_cliente, cpf, nome, email, telefone, endereco} = req.body;
-        insereCliente(db)
-        .then((sucess) => res.status(200).json(sucess))
-        .catch((erro) => res.sendStatus(400))
-    })
-
-    app.put('/clientes/:id', (req, res) => {
-        atualizaCliente(db)
-        .then((sucess) => res.status(200).json(sucess))
-        .catch((erro) => res.sendStatus(400))
-    })
-
-    app.delete('/clientes/:id', (req, res) => {
-        deletaCliente(db)
-        .then((sucess) => res.status(200).json(sucess))
-        .catch((erro) => res.sendStatus(400))
-    })
+//import ClientesM from "../models/clientes-models.js"
+import { getClientes, getClienteById, insertCliente, updateCliente, deleteCliente } from "../models/clientes-models.js"
 
 
-
+export const recebeCliente = async(req, res) => {
+    const id = req.params.id
+    try {
+        const Clientes = await getClienteById(id)
+        res.status(200).json({Clientes})
+    } catch {
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        });
+    }
 }
 
-export default clientesC
+export const recebeClientes = async(req, res) => {
+    try {
+        const Cliente = await getClientes()
+        res.status(200).json({Cliente})
+    } catch {
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        });
+    }
+}
+
+export const insereCliente = async (req, res) => {
+    const body = req.body;
+    try {
+      const Cliente = await insertCliente(body)
+      res.status(200).json({Cliente})
+    } catch (error) {
+      res.status(400).json({
+        "msg" : error.message,
+        "erro" : "true"
+      })
+    }
+  }
+
+  export const atualizaCliente = async (req, res) => {
+    const body = req.body;
+    const id = req.params.id
+    try {
+      const Cliente = await updateCliente(body, id)
+      res.status(200).json({Cliente})
+    } catch (error) {
+      res.status(400).json({
+        "msg" : error.message,
+        "erro" : "true"
+      })
+    }
+  }
+
+  export const deletaCliente  = async (req, res) => {
+    const id = req.params.id
+    try {
+      const Cliente = await deleteCliente(id)
+      res.status(200).json({Cliente})
+    } catch (error) {
+      res.status(400).json({
+        "msg" : error.message,
+        "erro" : "true"
+      })
+    }
+  }
+
