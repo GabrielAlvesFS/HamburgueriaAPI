@@ -1,11 +1,12 @@
-import db from "../database/sqlite-db.js"
+import db from "../database/database.js"
 
 
 // BUSCA CLIENTES POR ID
 
-const recebeCliente = (db) => {
+
+const recebeCliente = (id) => {
     return new Promise ((res, rej) => {
-        db.get("SELECT * FROM CLIENTES WHERE CLIENTE_ID = ?", (erro, rows) => {
+        db.get("SELECT * FROM CLIENTES WHERE CLIENTE_ID = ?", id, (erro, rows) => {
             if (erro) {
                 rej(erro.message)
             } else {
@@ -17,7 +18,7 @@ const recebeCliente = (db) => {
 
 // BUSCA TODOS OS CLIENTES
 
-const recebeClientes = (db) => {
+ const recebeClientes = () => {
     return new Promise ((res, rej) => {
         db.all("SELECT * FROM CLIENTES", (erro, rows) => {
             if (erro) {
@@ -31,9 +32,9 @@ const recebeClientes = (db) => {
 
 // INSERE CLIENTES
 
-const insereCliente = (db, id_cliente, cpf, nome, email, telefone, endereco) => {
+const insereCliente = (id) => {
     return new Promise ((res, rej) => {
-        db.run(`INSERT INTO CLIENTES( id_cliente, cpf, nome, email, telefone, endereco)  VALUES (?,?,?,?,?,?)`, [id_cliente, cpf, nome, email, telefone, endereco], (erro, rows) => {
+        db.run(`INSERT INTO CLIENTES( id_cliente, cpf, nome, email, telefone, endereco)  VALUES (?,?,?,?,?,?)`, [id_cliente, cpf, nome, email, telefone, endereco], id, (erro, rows) => {
             if (erro) {
                 rej(erro.message)
             } else {
@@ -43,11 +44,11 @@ const insereCliente = (db, id_cliente, cpf, nome, email, telefone, endereco) => 
 })
 }
 
-// ATUALIZAR CLIENTES
+// ATUALIZAR CLIENTES-
 
-const atualizaCliente = (db, id_cliente, cpf, nome, email, telefone, endereco) => {
+ const atualizaCliente = (id) => {
     return new Promise ((res, rej) => {
-        db.run(`UPDATE CLIENTES SET cpf = ?, nome = ?, email = ?, telefone = ?, endereco = ? WHERE id_cliente = ?`, [id_cliente, cpf, nome, email, telefone, endereco], (erro, rows) => {
+        db.run(`UPDATE CLIENTES SET cpf = ?, nome = ?, email = ?, telefone = ?, endereco = ? WHERE id_cliente = ?`, [id_cliente, cpf, nome, email, telefone, endereco], id, (erro, rows) => {
             if (erro) {
                 rej(erro.message)
             } else {
@@ -57,7 +58,7 @@ const atualizaCliente = (db, id_cliente, cpf, nome, email, telefone, endereco) =
 })
 }
 
-const deletaCliente = (db) => {
+const deletaCliente = () => {
     return new Promise ((res, rej) => {
         db.run("DELETE * FROM CLIENTES WHERE CLIENTE_ID = ?", (erro, rows) => {
             if (erro) {
@@ -69,4 +70,4 @@ const deletaCliente = (db) => {
 })
 }
 
-export default { recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente }
+export { recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente }
