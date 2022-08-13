@@ -1,6 +1,6 @@
-import { listarPedidos, listarPedido } from "../DAO/pedidosDAO.js";
+import { listarPedidos, listarPedido, cadastrarPedido } from "../DAO/pedidosDAO.js";
 
-class Pedidos {
+export class Pedidos {
     constructor(cliente_id, entregador_id, data_pedido, status_pedido, valor_total, metodo_pagamento){
         this.cliente_id = cliente_id;
         this.entregador_id = entregador_id;
@@ -26,6 +26,16 @@ export const getPedido = async (id) => {
         const dados = await listarPedido(id);
         if (!dados) throw new Error("Não foi possível encontrar o pedido")
         return dados
+    } catch (error) {
+        throw error
+    }
+}
+
+export const postPedido = async (dadosPedido) => {
+    try {
+        const newPedido = await cadastrarPedido(dadosPedido)
+        if (!newPedido) throw new Error("Não foi possível cadastrar o seu pedido")
+        return newPedido
     } catch (error) {
         throw error
     }
