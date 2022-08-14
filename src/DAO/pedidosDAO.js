@@ -70,5 +70,21 @@ const alterarPedido = (id, novosDados) => {
     })
 }
 
+const removerPedido = (id) => {
+    const query = `DELETE FROM PEDIDOS WHERE ID = ?`
 
-export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido };
+    return new Promise ((resolve, reject) => {
+        db.run(query, id, (error) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} deletado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido };
