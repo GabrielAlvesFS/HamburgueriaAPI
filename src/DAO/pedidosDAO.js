@@ -53,4 +53,22 @@ const cadastrarPedido = (dadosPedido) => {
     })
 }
 
-export { listarPedidos, listarPedido, cadastrarPedido };
+const alterarPedido = (id, novosDados) => {
+    const query = `UPDATE PEDIDOS SET entregador_id = ?, status_pedido = ?, metodo_pagamento = ? WHERE id = ${id}`
+    
+    return new Promise ((resolve, reject) => {
+        db.run(query, Object.values(novosDados), (error) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+
+export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido };
