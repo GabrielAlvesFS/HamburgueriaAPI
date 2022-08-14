@@ -1,9 +1,10 @@
 import express from 'express';
-import { listarItensPedido } from "../controllers/itemPedido-controller.js";
+import { listarItensPedidos, listarItensPedido } from "../controllers/itemPedido-controller.js";
 
 const router = express.Router()
 
 router
-    .get("/itemPedido", listarItensPedido)
+    .get("/itemPedido", listarItensPedidos)
+    .get("/itemPedido/:pedido_id", listarItensPedido)
 
 export default router    
