@@ -1,4 +1,4 @@
-import { listarItensPedido } from "../DAO/itemPedidoDAO.js";
+import { listarItensPedidos, listarItensPedido } from "../DAO/itemPedidoDAO.js";
 
 export class ItemPedido {
     constructor(pedido_id, item_id, quantidade_itens){
@@ -8,9 +8,19 @@ export class ItemPedido {
     }
 }
 
-export const getItensPedido = async () => {
+export const getItensPedidos = async () => {
     try {
-        const dados = await listarItensPedido()
+        const dados = await listarItensPedidos()
+        if (!dados) throw new Error("Não foi possível encontrar os itens do pedido")
+        return dados
+    } catch (error) {
+        throw(error)
+    }
+}
+
+export const getItensPedido = async (pedido_id) => {
+    try {
+        const dados = await listarItensPedido(pedido_id)
         if (!dados) throw new Error("Não foi possível encontrar os itens do pedido")
         return dados
     } catch (error) {
