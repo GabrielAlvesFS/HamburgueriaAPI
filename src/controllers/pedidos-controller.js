@@ -1,4 +1,4 @@
-import { Pedidos, getPedidos, getPedido, postPedido, putPedido } from "../models/pedidos-models.js";
+import { Pedidos, getPedidos, getPedido, postPedido, putPedido, deletePedido } from "../models/pedidos-models.js";
 
 
 export const listarPedidos = async (req, res) => {
@@ -52,6 +52,20 @@ export const alterarPedido = async (req, res) => {
     try {
         const updPedido = await putPedido(id, dataP)
         res.status(200).json(updPedido)
+    } catch (error) {
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        });
+    }
+}
+
+export const removerPedido = async(req, res) => {
+    const id = +req.params.id
+
+    try {
+        const delPedido = await deletePedido(id)
+        res.status(200).json(delPedido)
     } catch (error) {
         res.status(400).json({
             "msg" : error.message,
