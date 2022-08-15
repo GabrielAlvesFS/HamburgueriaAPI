@@ -97,7 +97,7 @@ const atualizarValorPedido = (valor, pedido_id) => {
             } 
             else {
                 resolve({
-                    "msg": `Pedido de id: ${id} atualizado com sucesso!`
+                    "msg": `Valor do pedido atualizado com sucesso!`
                 })
             }
         })
