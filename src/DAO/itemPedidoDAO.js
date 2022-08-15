@@ -76,4 +76,21 @@ const cadastrarItemPedido = (itemPedido) => {
     })
 }
 
-export {listarItensPedidos, listarItensPedido, somaItensPedido, cadastrarItemPedido}
+const alterarItemPedido = (novoValor, id) => {
+    const query = `UPDATE ITEM_PEDIDO SET pedido_id = ?, item_id = ?, quantidade_itens = ? WHERE id = ${id}`
+
+    return new Promise((resolve, reject) => {
+        db.run(query, Object.values(novoValor), (error) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Item do pedido atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+export {listarItensPedidos, listarItensPedido, somaItensPedido, cadastrarItemPedido, alterarItemPedido}
