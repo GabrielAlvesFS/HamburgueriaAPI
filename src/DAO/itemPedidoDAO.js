@@ -1,4 +1,5 @@
 import db from "../database/database.js";
+import { ItemPedido } from "../models/itemPedido-models.js";
 
 const listarItensPedidos = () => {
     const query = `SELECT * FROM ITEM_PEDIDO;`
@@ -76,8 +77,8 @@ const cadastrarItemPedido = (itemPedido) => {
     })
 }
 
-const alterarItemPedido = (novoValor, id) => {
-    const query = `UPDATE ITEM_PEDIDO SET pedido_id = ?, item_id = ?, quantidade_itens = ? WHERE id = ${id}`
+const alterarItemPedido = (novoValor, itemPedido_id) => {
+    const query = `UPDATE ITEM_PEDIDO SET pedido_id = ?, item_id = ?, quantidade_itens = ? WHERE id = ${itemPedido_id}`
 
     return new Promise((resolve, reject) => {
         db.run(query, Object.values(novoValor), (error) => {
@@ -93,4 +94,21 @@ const alterarItemPedido = (novoValor, id) => {
     })
 }
 
-export {listarItensPedidos, listarItensPedido, somaItensPedido, cadastrarItemPedido, alterarItemPedido}
+const removerItemPedido = (itemPedido_id) => {
+    const query = `DELETE FROM ITEM_PEDIDO WHERE ID = ?`
+
+    return new Promise ((resolve, reject) => {
+        db.run(query, itemPedido_id, (error) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `ItemPedido de id: ${itemPedido_id} deletado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+export {listarItensPedidos, listarItensPedido, somaItensPedido, cadastrarItemPedido, alterarItemPedido, removerItemPedido}
