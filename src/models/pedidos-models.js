@@ -1,4 +1,4 @@
-import { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido } from "../DAO/pedidosDAO.js";
+import { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido, atualizarValorPedido } from "../DAO/pedidosDAO.js";
 
 export class Pedidos {
     constructor(cliente_id, entregador_id, data_pedido, status_pedido, valor_total, metodo_pagamento){
@@ -54,6 +54,15 @@ export const deletePedido = async (id) => {
     try {
         const delPedido = await removerPedido(id)
         return delPedido
+    } catch (error) {
+        throw error
+    }
+}
+
+export const putValorPedido = async (valor, pedido_id) => {
+    try {
+        const updPedido = await atualizarValorPedido(valor, pedido_id)
+        return updPedido
     } catch (error) {
         throw error
     }
