@@ -61,7 +61,6 @@ export const putItensPedido = async (novoValor, itemPedido_id) => {
 export const deleteItensPedido = async (itemPedido_id) => {
     try {
         const delItemPedido = await removerItemPedido(itemPedido_id)
-        console.log(delItemPedido)
         if (!delItemPedido) throw new Error("Não foi possível deletar o Item do pedido")
         return delItemPedido
     } catch (error) {
