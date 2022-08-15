@@ -1,20 +1,5 @@
+
 import db from "../database/database.js"
-
-
-// BUSCA CLIENTES POR ID
-
-
-const recebeCliente = (id) => {
-    return new Promise ((res, rej) => {
-        db.get("SELECT * FROM CLIENTES WHERE CLIENTE_ID = ?", id, (erro, rows) => {
-            if (erro) {
-                rej(erro.message)
-            } else {
-                res(rows)
-            }
-        })
-})
-}
 
 // BUSCA TODOS OS CLIENTES
 
@@ -30,15 +15,41 @@ const recebeCliente = (id) => {
 })
 }
 
+// BUSCA CLIENTES POR ID
+
+
+const recebeCliente = (id) => {
+    return new Promise ((res, rej) => {
+        db.get("SELECT * FROM CLIENTES WHERE id = ?", id, (error, rows) => {
+            if(error) {
+                rej(error)
+            } else if ((!rows) || rows.length <= 0) {
+                rej({
+                    "message": 'Cliente não encontrado',
+                    "status": 400,
+                    "erro": true
+                })
+            } else {
+                res(rows)
+            }
+        })
+})
+}
+
+
 // INSERE CLIENTES
 
-const insereCliente = (id) => {
+const insereCliente = (dadosCliente) => {
     return new Promise ((res, rej) => {
-        db.run(`INSERT INTO CLIENTES( id_cliente, cpf, nome, email, telefone, endereco)  VALUES (?,?,?,?,?,?)`, [id_cliente, cpf, nome, email, telefone, endereco], id, (erro, rows) => {
-            if (erro) {
-                rej(erro.message)
+        db.run(`INSERT INTO CLIENTES(nome, cpf, data_nascimento, telefone, email, endereco)  VALUES (?,?,?,?,?,?)`, ...Object.values(dadosCliente), (error, rows) => {
+            if (error) {
+                rej(error.message)
             } else {
-                res("Usuario criado com sucesso")
+                res({ 
+                "msg": `Cliente cadastrado com sucesso!`,
+                "pedido": rows,
+                "erro": false
+              }) 
             }
         })
 })
@@ -46,25 +57,25 @@ const insereCliente = (id) => {
 
 // ATUALIZAR CLIENTES-
 
- const atualizaCliente = (id) => {
+ const atualizaCliente = ( novosDadosCliente) => {
     return new Promise ((res, rej) => {
-        db.run(`UPDATE CLIENTES SET cpf = ?, nome = ?, email = ?, telefone = ?, endereco = ? WHERE id_cliente = ?`, [id_cliente, cpf, nome, email, telefone, endereco], id, (erro, rows) => {
-            if (erro) {
-                rej(erro.message)
+        db.run(`UPDATE CLIENTES SET  nome = ?, cpf = ?, data_nascimento = ?, email = ?, telefone = ?, endereco = ? WHERE id = ?`, Object.values(novosDadosCliente), (error, rows) => {
+            if (error) {
+                rej(error.message)
             } else {
-                res("Usuario $`{nome}` atualizado.")
+                res("Usuario $`{nome}` atualizado com sucesso.")
             }
         })
 })
 }
 
-const deletaCliente = () => {
+const deletaCliente = (id) => {
     return new Promise ((res, rej) => {
-        db.run("DELETE * FROM CLIENTES WHERE CLIENTE_ID = ?", (erro, rows) => {
-            if (erro) {
-                rej(erro.message)
+        db.run("DELETE * FROM CLIENTES WHERE id = ?", id, (error, rows) => {
+            if (error) {
+                rej(error.message)
             } else {
-                res("Usuario $`{CLIENTE_ID}` deletado com sucesso.")
+                res("Usuario $`{id}` deletado com sucesso.")
             }
         })
 })
