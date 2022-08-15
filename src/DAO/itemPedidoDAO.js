@@ -58,7 +58,22 @@ const somaItensPedido = (pedido_id) => {
     })
 } 
 
-//toda vez que cadastrar ou alterar um item pedido tem que atualizar o valor da tabela de pedidos com o id do pedido
+const cadastrarItemPedido = (itemPedido) => {
+    const query = `INSERT INTO ITEM_PEDIDO (pedido_id, item_id, quantidade_itens) VALUES (?, ?, ?)`
 
+    return new Promise ((resolve, reject) => {
+        db.run(query, Object.values(itemPedido), (error) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `Item do Pedido cadastrado com sucesso!`,
+                    "erro": false
+                })  
+            }
+        } )
+    })
+}
 
-export {listarItensPedidos, listarItensPedido, somaItensPedido}
+export {listarItensPedidos, listarItensPedido, somaItensPedido, cadastrarItemPedido}
