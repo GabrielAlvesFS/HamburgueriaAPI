@@ -1,4 +1,4 @@
-import { ItemPedido, getItensPedidos, getItensPedido, postItensPedido, somaPedido } from "../models/itemPedido-models.js";
+import { ItemPedido, getItensPedidos, getItensPedido, postItensPedido, somaPedido, putItensPedido } from "../models/itemPedido-models.js";
 import { putValorPedido } from "../models/pedidos-models.js";
 
 export const listarItensPedidos = async (req, res) => {
@@ -40,6 +40,30 @@ export const cadastrarItemPedido = async (req, res) => {
         totalPedido = Object.values(totalPedido[0])
         totalPedido = totalPedido[0]
         
+        //atualizando o valor total do pedido na tabela de pedidos com o id do pedido específico
+        const updPedido = await putValorPedido(totalPedido, pedido_id)
+    } catch (error) {
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        });
+    }
+}
+
+export const atualizarItensPedido = async (req, res) => {
+    const {item_id, quantidade_itens} = req.body
+    const pedido_id = +req.params.pedido_id
+    const dataP = new ItemPedido(pedido_id, item_id, quantidade_itens)
+    const id = +req.params.id
+
+    try {
+        const newItemPedido = await putItensPedido(dataP, id) 
+        res.status(201).send(newItemPedido)
+        // totalPedido -> total dos itens do pedido especifico é atualizado quando cadastrado um novo pedido
+        let totalPedido = await somaPedido(pedido_id)
+        totalPedido = Object.values(totalPedido[0])
+        totalPedido = totalPedido[0]
+        console.log(totalPedido)
         //atualizando o valor total do pedido na tabela de pedidos com o id do pedido específico
         const updPedido = await putValorPedido(totalPedido, pedido_id)
     } catch (error) {
