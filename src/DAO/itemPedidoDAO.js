@@ -1,5 +1,4 @@
 import db from "../database/database.js";
-import { ItemPedido } from "../models/itemPedido-models.js";
 
 const listarItensPedidos = () => {
     const query = `SELECT * FROM ITEM_PEDIDO;`
