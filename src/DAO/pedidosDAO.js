@@ -15,6 +15,7 @@ const listarPedidos = () => {
     });
 }
 
+//Função com a query que retorna um pedido especifico
 const listarPedido = (id) => {
     const query = `SELECT * FROM PEDIDOS WHERE ID = ?;`
     return new Promise((resolve, reject) => {
@@ -23,19 +24,67 @@ const listarPedido = (id) => {
                 reject(error)
             } else if ((!rows) || rows.length <= 0) {
                 reject({
-                    "message": 'Usuário não encontrado',
-                    "status": 404,
+                    "message": 'Pedido não encontrado',
+                    "status": 400,
                     "erro": true
                 })
-            } else {resolve({
-                "status": 200,
-                "retorno" : {
-                "dados" : rows
-                }
-            })}
+            } else {
+                resolve(rows)
+            }
         })
     })
 }
 
+const cadastrarPedido = (dadosPedido) => {
+    const query = `INSERT INTO PEDIDOS (cliente_id, entregador_id, data_pedido, metodo_pagamento) VALUES (?, ?, ?, ?)`
+    return new Promise ((resolve, reject) => {
+        db.run(query, Object.values(dadosPedido), (error, rows) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `Pedido cadastrado com sucesso!`,
+                    "pedido": rows,
+                    "erro": false
+                })  
+            }    
+        })
+    })
+}
 
-export { listarPedidos, listarPedido };
+const alterarPedido = (id, novosDados) => {
+    const query = `UPDATE PEDIDOS SET entregador_id = ?, status_pedido = ?, metodo_pagamento = ? WHERE id = ${id}`
+    
+    return new Promise ((resolve, reject) => {
+        db.run(query, Object.values(novosDados), (error) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+const removerPedido = (id) => {
+    const query = `DELETE FROM PEDIDOS WHERE ID = ?`
+
+    return new Promise ((resolve, reject) => {
+        db.run(query, id, (error) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} deletado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido };
