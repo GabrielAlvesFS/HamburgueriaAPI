@@ -87,4 +87,22 @@ const removerPedido = (id) => {
     })
 }
 
-export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido };
+const atualizarValorPedido = (valor, pedido_id) => {
+    const query = `UPDATE PEDIDOS SET valor_total = ? WHERE pedido_id = ?`
+
+    return new Promise ((resolve, reject) => {
+        db.run(query, valor, pedido_id, (error, rows) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+
+export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido, atualizarValorPedido };
