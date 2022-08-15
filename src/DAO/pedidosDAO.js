@@ -88,7 +88,7 @@ const removerPedido = (id) => {
 }
 
 const atualizarValorPedido = (valor, pedido_id) => {
-    const query = `UPDATE PEDIDOS SET valor_total = ? WHERE pedido_id = ?`
+    const query = `UPDATE PEDIDOS SET valor_total = ? WHERE id = ?`
 
     return new Promise ((resolve, reject) => {
         db.run(query, valor, pedido_id, (error, rows) => {
