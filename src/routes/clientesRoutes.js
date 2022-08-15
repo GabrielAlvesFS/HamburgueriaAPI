@@ -8,6 +8,6 @@ router
     .get("/clientes/:id", recebeCliente)
     .post("/clientes", insereCliente)
     .put("/clientes/:id", atualizaCliente)
-    .delete("clientes/:id", deletaCliente)
+    .delete("/clientes/:id", deletaCliente)
     
 export default router;   
