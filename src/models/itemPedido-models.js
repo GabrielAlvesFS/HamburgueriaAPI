@@ -1,4 +1,4 @@
-import { listarItensPedidos, listarItensPedido, cadastrarItemPedido, somaItensPedido } from "../DAO/itemPedidoDAO.js";
+import { listarItensPedidos, listarItensPedido, cadastrarItemPedido, somaItensPedido, alterarItemPedido } from "../DAO/itemPedidoDAO.js";
 
 export class ItemPedido {
     constructor(pedido_id, item_id, quantidade_itens){
@@ -43,6 +43,16 @@ export const somaPedido = async (pedido_id) => {
         const soma = await somaItensPedido(pedido_id)
         if (!soma) throw new Error("Não foi possível cadastrar o Item do pedido")
         return soma
+    } catch (error) {
+        throw error
+    }
+}
+
+export const putItensPedido = async (novoValor, id) => {
+    try {
+        const newItemPedido = await alterarItemPedido(novoValor, id)
+        if (!newItemPedido) throw new Error("Não foi possível atualizar o Item do pedido")
+        return newItemPedido
     } catch (error) {
         throw error
     }
