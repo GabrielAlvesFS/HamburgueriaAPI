@@ -2,13 +2,12 @@
  import {recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente } from "../DAO/clientesDAO.js"
  
  export class ClientesM {
-    constructor(id, cpf, nome, email, data_nascimento, telefone, endereco) {
-        this.id = id;
-        this.cpf = cpf;
+    constructor( nome, cpf,  data_nascimento, telefone, email, endereco) {
         this.nome = nome;
+        this.cpf = cpf;
         this.data_nascimento = data_nascimento;
-        this.email = email;
         this.telefone = telefone;
+        this.email = email;  
         this.endereco = endereco;
     }
 }
@@ -45,9 +44,9 @@ export const insertCliente = async (dadosCliente) => {
     }
 }
 
-export const updateCliente = async (novosDadosCliente) => {
+export const updateCliente = async (novosDadosCliente, id) => {
     try {
-        const dados = await atualizaCliente(novosDadosCliente)
+        const dados = await atualizaCliente(novosDadosCliente, id)
         if (!dados) throw new Error("Não foi possivel atualizar os dados do cliente")
         return dados 
     } catch (error) {
@@ -58,6 +57,7 @@ export const updateCliente = async (novosDadosCliente) => {
 
 export const deleteCliente = async (id) => {
     try {
+        //await recebeCliente(id)
         const dados = await deletaCliente(id)
         if (!dados) throw new Error("Não foi possivel deletar os dados do cliente")
         return dados 
@@ -66,6 +66,3 @@ export const deleteCliente = async (id) => {
     }
 }
 
-
-
-export default ClientesM
