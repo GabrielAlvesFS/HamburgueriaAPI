@@ -46,6 +46,9 @@ const deletarItem = (id)  => {
             if (error) {
                 reject(error)
             }
+            else if((!rows) || rows.length <= 0) {
+                reject(error)
+            }
             resolve("Item deletado com sucesso.")
         })
     })
@@ -54,8 +57,11 @@ const deletarItem = (id)  => {
 const atualizarItem = (id, novosDados) => {
     const query = `UPDATE ITEM SET tipo = ?, nome = ?, descricao = ?, valor = ?, url_img = ? WHERE ID = ${id};`
     return new Promise ((resolve, reject) => {
-        db.run(query, Object.values(novosDados), (error) => {
+        db.run(query, Object.values(novosDados), (error, rows) => {
             if (error) {
+                reject(error)
+            }
+            else if((!rows) || rows.length <= 0) {
                 reject(error)
             }
             resolve("Item atualizado com sucesso.")

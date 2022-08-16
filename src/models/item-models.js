@@ -46,7 +46,6 @@ export const postItem = async (dadosItem) => {
 export const deleteItem = async (id) => {
     try {
         const deletedItem = await deletarItem(id)
-        if(!deletedItem) throw new Error ("Não foi possível deletar o item.")
         return deletedItem
     }
     catch(error) {

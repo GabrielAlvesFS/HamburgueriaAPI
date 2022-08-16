@@ -1,4 +1,4 @@
-import {Item, getItens, getItemId, postItem, updateItem} from '../models/item-models.js'
+import {Item, getItens, getItemId, postItem, deleteItem, updateItem} from '../models/item-models.js'
 
 export const listarItens = async (req, res) => {
     try {
@@ -34,9 +34,10 @@ export const cadastrarItem = async (req, res) => {
 }
 
 export const deletarItem = async (req, res) => {
-    const id = +req.params.id
+    const id = req.params.id
     try {
-        res.status(200).send(`Item de id ${id} deletado com sucesso.`)
+        const itemDeletado = await deleteItem(id)
+        res.status(200).send('Item deletado com sucesso.')
     }
     catch {
         res.status(400).send('Não foi possível deletar o item.')
@@ -44,7 +45,7 @@ export const deletarItem = async (req, res) => {
 }
 
 export const atualizarItem = async (req, res) => {
-    const id = +req.params.id
+    const id = req.params.id
     const {tipo, nome, descricao, valor, url_img} = req.body
     const novosDados = new Item(tipo, nome, descricao, valor, url_img) 
     try {
