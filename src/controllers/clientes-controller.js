@@ -29,11 +29,11 @@ export const recebeClientes = async(req, res) => {
 }
 
 export const insereCliente = async (req, res) => {
-  const {cpf, nome, email, data_nascimento, telefone, endereco} = req.body;
-  const dataC = new ClientesM(cpf, nome, email, data_nascimento, telefone, endereco)
+  const {nome, cpf,  data_nascimento,  telefone, email, endereco} = req.body;
+  const dataC = new ClientesM(nome, cpf,  data_nascimento,  telefone, email, endereco)
     try {
-      const Cliente = await insertCliente(dataC)
-      res.status(200).json(Cliente)
+      const insCliente = await insertCliente(dataC)
+      res.status(200).json(insCliente)
     } catch (error) {
       res.status(400).json({
         "msg" : error.message,
@@ -45,12 +45,12 @@ export const insereCliente = async (req, res) => {
   export const atualizaCliente = async (req, res) => {
 
     const id = +req.params.id
-    const {cpf, nome, email, data_nascimento, telefone, endereco} = req.body;
-    const dataC = new ClientesM(cpf, nome, email, data_nascimento, telefone, endereco)
+    const {nome, cpf,  data_nascimento,  telefone, email, endereco} = req.body;
+    const dataC = new ClientesM(nome, cpf,  data_nascimento,  telefone, email, endereco)
     
     try {
-      const Cliente = await updateCliente(dataC, id)
-      res.status(200).json(Cliente)
+      const upCliente = await updateCliente(dataC, id)
+      res.status(200).json(upCliente)
     } catch (error) {
       res.status(400).json({
         "msg" : error.message,
@@ -60,10 +60,10 @@ export const insereCliente = async (req, res) => {
   }
 
   export const deletaCliente  = async (req, res) => {
-    const id = req.params.id
+    const id = +req.params.id
     try {
-      const Cliente = await deleteCliente(id)
-      res.status(200).json(Cliente)
+      const delCliente = await deleteCliente(id)
+      res.status(200).send(delCliente)
     } catch (error) {
       res.status(400).json({
         "msg" : error.message,
