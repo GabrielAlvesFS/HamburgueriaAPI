@@ -1,4 +1,4 @@
-import { Entregadores, getEntregadores, getEntregador, postEntregador, putEntregador  } from "../models/entregadores-models.js";
+import { Entregadores, getEntregadores, getEntregador, postEntregador, putEntregador, deleteEntregador  } from "../models/entregadores-models.js";
 
 export const listarEntregadores = async (req, res) => {
     try {
@@ -53,6 +53,19 @@ export const criarEntregador = async (req, res) => {
       res.status(200).json(resposta)
     } catch (error) {
       res.status(404).json({
+        "mensagem": error.message,
+        "erro": true
+      })
+    }
+  }
+
+  export const deletarEntregador = async (req, res) => {
+    try {
+      const id = +req.params.id
+      const resposta = await deleteEntregador(id)
+      res.status(200).json(resposta)
+    } catch (error) {
+      res.status(400).json({
         "mensagem": error.message,
         "erro": true
       })
