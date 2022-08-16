@@ -41,7 +41,7 @@ const recebeCliente = (id) => {
 
 const insereCliente = (dadosCliente) => {
     return new Promise ((res, rej) => {
-        db.run(`INSERT INTO CLIENTES(nome, cpf, data_nascimento, telefone, email, endereco)  VALUES (?,?,?,?,?,?)`, ...Object.values(dadosCliente), (error, rows) => {
+        db.run(`INSERT INTO CLIENTES(nome, cpf,  data_nascimento,  telefone, email, endereco)  VALUES (?,?,?,?,?,?)`, Object.values(dadosCliente), (error, rows) => {
             if (error) {
                 rej(error.message)
             } else {
@@ -57,9 +57,9 @@ const insereCliente = (dadosCliente) => {
 
 // ATUALIZAR CLIENTES-
 
- const atualizaCliente = ( novosDadosCliente) => {
+ const atualizaCliente = ( novosDadosCliente, id) => {
     return new Promise ((res, rej) => {
-        db.run(`UPDATE CLIENTES SET  nome = ?, cpf = ?, data_nascimento = ?, email = ?, telefone = ?, endereco = ? WHERE id = ?`, Object.values(novosDadosCliente), (error, rows) => {
+        db.run(`UPDATE CLIENTES SET nome = ?, cpf = ?,  data_nascimento = ?,  telefone = ?, email = ?, endereco = ? WHERE id = ${id}`, Object.values(novosDadosCliente), (error, rows) => {
             if (error) {
                 rej(error.message)
             } else {
@@ -69,16 +69,18 @@ const insereCliente = (dadosCliente) => {
 })
 }
 
-const deletaCliente = (id) => {
+const deletaCliente = (Id) => {
     return new Promise ((res, rej) => {
-        db.run("DELETE * FROM CLIENTES WHERE id = ?", id, (error, rows) => {
-            if (error) {
-                rej(error.message)
+        db.run(`DELETE FROM CLIENTES WHERE Id = ${Id}`, (error, rows) => {
+            if(error) {
+                rej(error)
+            } else if ((!rows) || rows.length <= 0) {
+                rej(error)
             } else {
-                res("Usuario $`{id}` deletado com sucesso.")
+                res(rows)
             }
         })
-})
+    })
 }
 
 export { recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente }
