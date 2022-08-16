@@ -34,7 +34,6 @@ export const listarEntregador = (id) => {
     })
 }
 
-
 export const criarEntregador = (entregador) => {
     const query = `INSERT INTO ENTREGADORES ( nome, cpf, telefone)
     VALUES (?, ?, ?)`
@@ -54,28 +53,17 @@ export const criarEntregador = (entregador) => {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//export const postarEntregadores = async(req, res) => {
-//    const nome = req.body.nome;
-//    res.status(200).send({message:"cadastro feito"})
-//}
+export const atualizarEntregador = (novo, id) => {
+    const query =`UPDATE ENTREGADORES SET nome = ?, cpf = ?, telefone = ? WHERE id = ${id}`
+   
+    return new Promise( (resolve, reject) => {
+        db.run(query, Object.values(novo), (error) => {
+                if(error) {
+                    reject(error)
+                } else {
+                    resolve(`Pessoa entregadora de id ${id} atualizada com sucesso!`)
+                }
+            }
+        )
+    })  
+}
