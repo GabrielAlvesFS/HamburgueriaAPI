@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS "PEDIDOS" (
     "data_pedido" DATETIME NOT NULL,
     "status_pedido" CHECK( "status_pedido" IN ('aberto', 'andamento', 'a caminho', 'finalizado') ) DEFAULT 'aberto',
     "valor_total" DECIMAL(5,2),
-    "metodo_pagamento" CHECK( "metodo_pagamento" IN ('débito', 'crédito', 'dinheiro', 'pix') ) NOT NULL,
+    "metodo_pagamento" CHECK( "metodo_pagamento" IN ('débito', 'crédito', 'dinheiro', 'pix') ) NOT NULL
 )`;
 
 // -> Model para popular tabela de Pedidos
