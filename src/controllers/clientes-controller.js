@@ -66,7 +66,7 @@ export const insereCliente = async (req, res) => {
       res.status(200).send(delCliente)
     } catch (error) {
       res.status(400).json({
-        "msg" : error.message,
+        "msg" : error,
         "erro" : "true"
       })
     }
