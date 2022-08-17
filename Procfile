@@ -1,1 +1,1 @@
-web: npm run database
+web: npm heroku
