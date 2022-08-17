@@ -53,9 +53,9 @@ export const deleteItem = async (id) => {
     }
 }
 
-export const updateItem = async (id, novosDados) => {
+export const updateItem = async (novosDados, id) => {
     try {
-        const dadoAtualizado = await atualizarItem(id, novosDados)
+        const dadoAtualizado = await atualizarItem(novosDados, id)
         return dadoAtualizado
     }
     catch(error) {

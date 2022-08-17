@@ -49,7 +49,7 @@ export const atualizarItem = async (req, res) => {
     const {tipo, nome, descricao, valor, url_img} = req.body
     const novosDados = new Item(tipo, nome, descricao, valor, url_img) 
     try {
-        const atualizado = await updateItem(id, novosDados)
+        const atualizado = await updateItem(novosDados, id)
         res.status(200).send(atualizado)
     }
     catch(error) {
