@@ -304,10 +304,10 @@ Modelo de requisição para o método GET
 ## 💻  Time desenvolvedor:
 	
 
- **Gabriel Alvez** - [larrissalira](https://github.com/larrissalira) INSERIR NOSSOS DADOS AQUI
- **Jéssica dos Santos** - [NodjaLima](https://github.com/NodjaLima)
- **Julia Zibordi** -  [SimoneLuiz](https://github.com/SimoneLuiz)
- **Magnus** - [rnegrelly](https://github.com/rnegrelly/)
+ **Gabriel Alves** - [GabrielAlvesFS](https://github.com/GabrielAlvesFS)
+ **Jessica dos Santos** - [JessBispo](https://github.com/jessbispo)
+ **Julia Zibordi** -  [juliazib](https://github.com/juliazib)
+ **Magnus** - [MagnusBittencourt](https://github.com/MagnusBittencourt)
 
 ---
 [⬆ Voltar ao Topo]()
