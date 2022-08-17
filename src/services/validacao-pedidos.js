@@ -8,11 +8,11 @@ export const validaData = (data) => {
 }
 
 export const validaMetodoPagamento = (metodo) => {
-    if (!(metodo.includes('débito') || metodo.includes('crédito') || metodo.includes('dinheiro') || metodo.includes('pix')))
+    if (!(metodo === 'débito' || metodo === 'crédito' || metodo === 'dinheiro' || metodo === 'pix'))
     throw new Error("Método de pagamento inválido. Selecione um dos métodos: débito, crédito, dinheiro ou pix! ")
 }
 
 export const validaStatus = (status) => {
-    if (!(status.includes('aberto') || status.includes('andamento') || status.includes('a caminho') || status.includes('finalizado')))
+    if (!(status === 'aberto' || status === 'andamento' || status === 'a caminho' || status === 'finalizado'))
     throw new Error("Status do pedido inválido. Selecione um dos status: aberto, andamento, a caminho ou finalizado! ")
 }
