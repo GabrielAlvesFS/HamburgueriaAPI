@@ -34,7 +34,10 @@ const cadastrarItem = (dadosItem) => {
             if (error) {
                 reject(error)
             }
-            resolve("Item cadastrado com sucesso.")
+            resolve({
+                "msg": `Item cadastrado com sucesso!`,
+                "erro": false
+            })
         })
     })
 }
@@ -58,7 +61,10 @@ const atualizarItem = (novosDados, id) => {
             if (error) {
                 reject(error)
             }
-            resolve("Item atualizado com sucesso.")
+            resolve({
+                "msg": `Item atualizado com sucesso!`,
+                "erro": false
+            })
         })
     })
 }
