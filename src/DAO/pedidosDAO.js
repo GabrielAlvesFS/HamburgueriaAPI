@@ -53,4 +53,56 @@ const cadastrarPedido = (dadosPedido) => {
     })
 }
 
-export { listarPedidos, listarPedido, cadastrarPedido };
+const alterarPedido = (id, novosDados) => {
+    const query = `UPDATE PEDIDOS SET entregador_id = ?, status_pedido = ?, metodo_pagamento = ? WHERE id = ${id}`
+    
+    return new Promise ((resolve, reject) => {
+        db.run(query, Object.values(novosDados), (error) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+const removerPedido = (id) => {
+    const query = `DELETE FROM PEDIDOS WHERE ID = ?`
+
+    return new Promise ((resolve, reject) => {
+        db.run(query, id, (error) => {
+            if (error) {
+                reject(error)
+            }
+            else {
+                resolve({
+                    "msg": `Pedido de id: ${id} deletado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+const atualizarValorPedido = (valor, pedido_id) => {
+    const query = `UPDATE PEDIDOS SET valor_total = ? WHERE id = ?`
+
+    return new Promise ((resolve, reject) => {
+        db.run(query, valor, pedido_id, (error, rows) => {
+            if (error) {
+                reject(error)
+            } 
+            else {
+                resolve({
+                    "msg": `Valor do pedido atualizado com sucesso!`
+                })
+            }
+        })
+    })
+}
+
+
+export { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido, atualizarValorPedido };
