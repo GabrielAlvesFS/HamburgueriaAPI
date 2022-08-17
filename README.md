@@ -21,6 +21,7 @@ Projeto realizado utilizando o [Node.js](https://nodejs.org/en/) com framework [
 - [SQLite](https://www.npmjs.com/package/sqlite3) - v. 5.0.11
 - [Cors](https://www.npmjs.com/package/cors) - v. 2.8.5
 - [Jest](https://www.npmjs.com/package/jest) - v. 28.1.3
+- [Supertest](https://www.npmjs.com/package/supertest) - v. 6.2.4
  
 ## :rocket: Instalação da Aplicação
 
@@ -63,7 +64,7 @@ npm run dev
 - **GET /entregadores**
 
   Retorna todos os entregadores do banco. Esquema da resposta:
-
+  
   ```json
    {
     "entregadores": [
@@ -81,7 +82,7 @@ npm run dev
 	}
     ]
   }
-  ```
+  ```	
 
 - **GET /entregadores:/id**
 
@@ -257,6 +258,115 @@ npm run dev
   ```
   "Item deletado com sucesso."
   ```
+  ### :hamburguer: Pedido
+
+  - **GET /pedidos**
+     <p>Lista todos os pedidos cadastrados</p>
+    <p>Esquema da resposta:</p>
+
+    ```json
+       
+    {
+      "Pedido": [
+        {
+         	"id":1,
+		"cliente_id":5,
+		"entregador_id":3,
+		"data_pedido":"2022-08-12",
+		"status_pedido":"aberto",
+		"valor_total":null,
+		"metodo_pagamento":"pix"
+        },
+        {
+          	"id":2,
+		"cliente_id":2,
+		"entregador_id":4,
+		"data_pedido":"2022-08-12",
+		"status_pedido":"aberto",
+		"valor_total":null,
+		"metodo_pagamento":"débito"
+        }
+      ]
+    }
+     ```
+
+- **GET /pedidos/:id**
+
+  <p>Lista o registro do pedido com determinado id. O número do id deve ser passado como parâmetro na rota.</p>
+
+  <p>Esquema da resposta:</p>
+
+  ```json
+          {
+		  "id":3,
+		  "cliente_id":1,
+		  "entregador_id":2,
+		  "data_pedido":"2022-08-12",
+		  "status_pedido":"aberto",
+		  "valor_total":null,
+		  "metodo_pagamento":"crédito"
+          }
+  ```
+
+- **POST /pedidos**
+  <p>Insere um registro de pedido. 
+
+  <p>Esquema da requisição:</p>
+
+  ```json
+          {
+		  "cliente_id":5,
+		  "entregador_id":3,
+		  "data_pedido":"2022-08-12",
+		  "status_pedido":"aberto",
+		  "valor_total":null,
+		  "metodo_pagamento":"pix"
+          }
+  ```
+
+  <p>Esquema da resposta:</p>
+
+  ```json
+  {
+  	"msg": "Pedido cadastrado com sucesso!",
+      	"erro": false
+  }
+  ```
+
+- **PUT /pedidos/:id**
+  <p>Atualiza um registro específico de pedido com determinado id. O número do id deve ser passado como parâmetro na rota, e a requisição deve ter um <em>body</em>.</p>
+  <p>Esquema da requisição:</p>
+
+  ```json
+          {
+		  "cliente_id":2,
+		  "entregador_id":4,
+		  "data_pedido":"2022-08-12",
+		  "status_pedido":"aberto",
+		  "valor_total":null,
+		  "metodo_pagamento":"crédito"
+          }
+  ```
+
+  Esquema da resposta:
+
+  ```json
+  {
+  	"msg": "Pedido atualizado com sucesso!",
+      	"erro": false
+  }
+  ```
+
+- **DELETE pedidos/:id**
+  <p>Apaga um registro específico, conforme o id passado como parâmetro na rota.</p>
+  <p>Esquema da resposta:</p>
+
+  ```json
+  {
+  	"msg": "Pedido deletado com sucesso!",
+      	"erro": false
+  }
+  ```
 
 ### :clipboard: Item pedido
 
@@ -316,7 +426,7 @@ npm run dev
   }
   ```
 
-- **PUT /itemPedido/:id**
+- **PUT /itemPedido/:pedido_id/:itemPedido_id**
 
   Atualiza um item pedido de acordo com o id. Esquema da requisição:
 
@@ -335,7 +445,7 @@ npm run dev
   }
   ```
 
-- **DELETE /itemPedido/:id**
+- **DELETE /itemPedido/:pedido_id/:itemPedido_id**
 
   Deleta um item pedido de acordo com o id. Esquema da resposta:
 
