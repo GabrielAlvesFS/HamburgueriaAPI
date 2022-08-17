@@ -47,9 +47,6 @@ export const criarEntregador = async (req, res) => {
     const id = req.params.id    
     try {
       const resposta = await putEntregador(dataE, id)
-      console.log(dataE)
-      console.log(id)
-      console.log(resposta)
       res.status(200).json(resposta)
     } catch (error) {
       res.status(404).json({
