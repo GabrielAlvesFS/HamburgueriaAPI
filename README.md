@@ -22,6 +22,12 @@ Projeto realizado utilizando o [Node.js](https://nodejs.org/en/) com framework [
 - [Cors](https://www.npmjs.com/package/cors) - v. 2.8.5
 - [Jest](https://www.npmjs.com/package/jest) - v. 28.1.3
 - [Supertest](https://www.npmjs.com/package/supertest) - v. 6.2.4
+
+## :rocket: Hospedagem da API na heroku:
+
+```
+https://hamburguer-api.herokuapp.com/
+```
  
 ## :rocket: Instalação da Aplicação
 
