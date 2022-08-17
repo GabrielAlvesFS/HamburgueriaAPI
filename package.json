@@ -8,7 +8,8 @@
     "dev": "nodemon ./src/server.js",
     "start": "node ./src/server.js",
     "test": "jest",
-    "database": "cd src/database & node create-and-populate.js"
+    "database": "cd src/database & node create-and-populate.js",
+    "heroku": "cd src/database && node create-and-populate.js && node ./src/server.js"
   },
   "repository": {
     "type": "git",
