@@ -63,7 +63,7 @@ const insereCliente = (dadosCliente) => {
             if (error) {
                 rej(error.message)
             } else {
-                res("Usuario $`{nome}` atualizado com sucesso.")
+                res({"msg": `Usuario de ${id} atualizado com sucesso.`})
             }
         })
 })
@@ -71,13 +71,14 @@ const insereCliente = (dadosCliente) => {
 
 const deletaCliente = (Id) => {
     return new Promise ((res, rej) => {
-        db.run(`DELETE FROM CLIENTES WHERE Id = ${Id}`, (error, rows) => {
-            if(error) {
+        db.run(`DELETE FROM CLIENTES WHERE Id = ${Id}`, (error) => {
+            if (error) {
                 rej(error)
-            } else if ((!rows) || rows.length <= 0) {
-                rej(error)
-            } else {
-                res(rows)
+            }
+            else {
+                res({
+                    "msg": `Cliente de id: ${Id} deletado com sucesso!`
+                })
             }
         })
     })
