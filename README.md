@@ -164,18 +164,19 @@ npm run dev
     {
       "Item": [
         {
-          "id": 1,
-	  "tipo":"Hambúrguer",
-	  "nome":"Blend Artesanal",
-	  "descricao":"Pão de Brioche tostado na manteiga, queijo, carne 160g, Bacon, Ovo, Cebola Roxa, molho artesanal + batata frita.",
-	  "valor":25,
-	  "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007778949608255488/unknown.png"
+         	"id": 1,
+	  	"tipo":"Hambúrguer",
+	  	"nome":"Blend Artesanal",
+	  	"descricao":"Pão de Brioche tostado na manteiga, queijo, carne 160g, Bacon, Ovo, Cebola Roxa, molho artesanal + batata frita.",
+	  	"valor":25,
+	  	"url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007778949608255488/unknown.png"
         },
         {
-          "id": 2,
-	  "tipo":"Hambúrguer","nome":"Blend Rings","descricao":"Pão de Brioche tostado na manteiga, cream cheese, carne 160g, Bacon, Barbecue, 3 onions rings, Alface, molho artesanal + batata frita.",
-	  "valor":26,
-	  "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007779038921760798/unknown.png"
+          	"id": 2,
+	  	"tipo":"Hambúrguer","nome":"Blend Rings",
+		"descricao":"Pão de Brioche tostado na manteiga, cream cheese, carne 160g, Bacon, Barbecue, 3 onions rings, Alface, molho artesanal + batata frita.",
+	  	"valor":26,
+	  	"url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007779038921760798/unknown.png"
         }
       ]
     }
@@ -189,12 +190,12 @@ npm run dev
 
   ```json
           {
-             "id": 16,
-	     "tipo":"Sobremesa",
-	     "nome":"Brigadeiros Recheados | 4 Unid",
-	     "descricao":"Brigadeiro incrível à base de chocolate branco e coco queimado, recheado com uma esfera de chocolate belga e ganache de chocolate. A caixa contém 4 unidades.",
-	     "valor":28.9,
-	     "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007787519074652170/202208121525_JOM1_i.JPEG"
+		  "id": 16,
+		  "tipo":"Sobremesa",
+		  "nome":"Brigadeiros Recheados | 4 Unid",
+		  "descricao":"Brigadeiro incrível à base de chocolate branco e coco queimado, recheado com uma esfera de chocolate belga e ganache de chocolate. A caixa contém 4 unidades.",
+		  "valor":28.9,
+		  "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007787519074652170/202208121525_JOM1_i.JPEG"
           }
   ```
 
@@ -207,11 +208,11 @@ npm run dev
 
   ```json
           {
-              "tipo":"Hambúrguer",
-	      "nome":"Hambúrguer Picanha Cheddar",
-	      "descricao":"Pão de brioche caramelizado, hambúrguer de picanha, bacon, pasta cheddar, cebola caramelizada e cream cheese.",
-	      "valor":21,
-	      "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007780354104500295/unknown.png"
+		  "tipo":"Hambúrguer",
+		  "nome":"Hambúrguer Picanha Cheddar",
+		  "descricao":"Pão de brioche caramelizado, hambúrguer de picanha, bacon, pasta cheddar, cebola caramelizada e cream cheese.",
+		  "valor":21,
+		  "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007780354104500295/unknown.png"
           }
   ```
 
@@ -227,11 +228,11 @@ npm run dev
 
   ```json
           {
-	      "tipo":"Aperitivos",
-	      "nome":"Mini Pastel de Carne (200g)",
-	      "descricao":"10 Deliciosos mini pastéis de carne bem sequinho e crocante",
-	      "valor":18.88,
-	      "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007790959003705404/1-kg-de-massa-de-pastel-rende-quantos-mini-pasteis.jpg.webp"
+		  "tipo":"Aperitivos",
+		  "nome":"Mini Pastel de Carne (200g)",
+		  "descricao":"10 Deliciosos mini pastéis de carne bem sequinho e crocante",
+		  "valor":18.88,
+		  "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007790959003705404/1-kg-de-massa-de-pastel-rende-quantos-mini-pasteis.jpg.webp"
           }
   ```
 
@@ -257,18 +258,18 @@ npm run dev
 
   ```json
   {
-    "Item": [
+    "ItemPedido": [
         {
-            "id": 1,
-	    "pedido_id": 1,
-	    "item_id":1,
-	    "quantidade_itens":1
+		"id": 1,
+		"pedido_id": 1,
+		"item_id":1,
+		"quantidade_itens":1
         },
         {
-            "id":2,
-	    "pedido_id":1,
-	    "item_id":8,
-	    "quantidade_itens":7
+		"id":2,
+		"pedido_id":1,
+		"item_id":8,
+		"quantidade_itens":7
         },
       ]
   }
@@ -346,21 +347,22 @@ npm run dev
       {
       "Clientes": [
           {
-              "Id":1,
-	      "nome":"Anthony Giovanni da Luz",
-	      "cpf":"552.872.396-53",
-	      "data_nascimento":"1961-03-24",
-	      "telefone":"(67)99680-4974",
-	      "email":"anthony_daluz@facebook.com","endereco":"Rua Santo Antônio, 830, Industrial, Corumbá, MS"
+		  "Id":1,
+		  "nome":"Anthony Giovanni da Luz",
+		  "cpf":"552.872.396-53",
+		  "data_nascimento":"1961-03-24",
+		  "telefone":"(67)99680-4974",
+		  "email":"anthony_daluz@facebook.com",
+		  "endereco":"Rua Santo Antônio, 830, Industrial, Corumbá, MS"
           },
           {
-              "Id":2,
-	      "nome":"Nair Lúcia Josefa Alves",
-	      "cpf":"294.903.563-95",
-	      "data_nascimento":"1998-04-02",
-	      "telefone":"(11)99535-1637",
-	      "email":"nair.lucia.alves@uel.br",
-	      "endereco":"Rua Estampa Esportiva, 921, Americanópolis, São Paulo, SP "
+		  "Id":2,
+		  "nome":"Nair Lúcia Josefa Alves",
+		  "cpf":"294.903.563-95",
+		  "data_nascimento":"1998-04-02",
+		  "telefone":"(11)99535-1637",
+		  "email":"nair.lucia.alves@uel.br",
+		  "endereco":"Rua Estampa Esportiva, 921, Americanópolis, São Paulo, SP "
           }
       ]
     }
