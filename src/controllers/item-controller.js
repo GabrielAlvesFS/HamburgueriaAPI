@@ -29,7 +29,10 @@ export const cadastrarItem = async (req, res) => {
         res.status(200).send(novoItem)
     }
     catch(error) {
-        res.status(400).send('Não foi possível cadastrar o item.')
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        })
     }
 }
 
@@ -53,6 +56,9 @@ export const atualizarItem = async (req, res) => {
         res.status(200).send(atualizado)
     }
     catch(error) {
-        res.status(400).send('Não foi possivel atualizar o item.')
+        res.status(400).json({
+            "msg" : error.message,
+            "erro" : "true"
+        })
     }
 }

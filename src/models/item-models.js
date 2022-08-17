@@ -1,4 +1,5 @@
 import {listarItens, listarItemId, cadastrarItem, deletarItem, atualizarItem} from '../DAO/itemDAO.js'
+import {validaTipo, validaNome, validaDescricao, validaValor} from '../services/validacao-item.js'
 
 export class Item {
     constructor(tipo, nome, descricao, valor, url_imagem) {
@@ -34,6 +35,14 @@ export const getItemId = async (id) => {
 
 export const postItem = async (dadosItem) => {
     try {
+        const tipo = Object.values(dadosItem)[0]
+        const nome = Object.values(dadosItem)[1]
+        const descricao = Object.values(dadosItem)[2]
+        const valor = Object.values(dadosItem)[3]
+        validaTipo(tipo)
+        validaNome(nome)
+        validaDescricao(descricao)
+        validaValor(valor)
         const newItem = await cadastrarItem(dadosItem)
         if(!newItem) throw new Error("Não foi possível cadastrar o item.")
         return newItem
@@ -55,6 +64,14 @@ export const deleteItem = async (id) => {
 
 export const updateItem = async (novosDados, id) => {
     try {
+        const tipo = Object.values(novosDados)[0]
+        const nome = Object.values(novosDados)[1]
+        const descricao = Object.values(novosDados)[2]
+        const valor = Object.values(novosDados)[3]
+        validaTipo(tipo)
+        validaNome(nome)
+        validaDescricao(descricao)
+        validaValor(valor)
         const dadoAtualizado = await atualizarItem(novosDados, id)
         return dadoAtualizado
     }
