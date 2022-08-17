@@ -1,4 +1,5 @@
 import { listarEntregadores, listarEntregador, criarEntregador, atualizarEntregador, deletarEntregadores } from "../DAO/entregadoresDAO.js"
+import { validaCpf, validaNome, validaTelefone } from "../services/validacao-entregadores.js"
 
 
 export class Entregadores {
@@ -32,6 +33,14 @@ export const getEntregador = async (id) => {
 
 export const postEntregador =  async (entregador) => {
     try {
+        const nome = Object.values(entregador)[0]
+        const telefone = Object.values(entregador)[2]
+        const cpf = Object.values(entregador)[1]
+
+        validaNome(nome)
+        validaTelefone(telefone)
+        validaCpf(cpf)
+
         const resposta = await criarEntregador(entregador)
         if(!resposta) throw new Error("Não foi possível cadastrar o entregador")
         return resposta
@@ -42,6 +51,14 @@ export const postEntregador =  async (entregador) => {
 
 export const putEntregador = async (entregador, id) => {
     try {
+        const nome = Object.values(entregador)[0]
+        const telefone = Object.values(entregador)[2]
+        const cpf = Object.values(entregador)[1]
+
+        validaNome(nome)
+        validaTelefone(telefone)
+        validaCpf(cpf)
+
         const resposta = await atualizarEntregador(entregador, id)
         if(!resposta) throw new Error("Não foi possível atualizar!")
         return resposta
