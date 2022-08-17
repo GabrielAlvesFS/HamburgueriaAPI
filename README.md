@@ -77,7 +77,8 @@ npm run dev
       	"id":2,
       	"nome":"Nicolas Carlos Gabriel Aparício",
       	"cpf":"775.212.381-17",
-      	"telefone":"(68)99149-6709"}
+      	"telefone":"(68)99149-6709"
+	}
     ]
   }
   ```
@@ -173,7 +174,8 @@ npm run dev
         },
         {
           	"id": 2,
-	  	"tipo":"Hambúrguer","nome":"Blend Rings",
+	  	"tipo":"Hambúrguer",
+		"nome":"Blend Rings",
 		"descricao":"Pão de Brioche tostado na manteiga, cream cheese, carne 160g, Bacon, Barbecue, 3 onions rings, Alface, molho artesanal + batata frita.",
 	  	"valor":26,
 	  	"url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007779038921760798/unknown.png"
@@ -218,8 +220,11 @@ npm run dev
 
   <p>Esquema da resposta:</p>
 
-  ```
-  "Item cadastrado com sucesso."
+  ```json
+  {
+  	"msg": "Item cadastrado com sucesso!",
+      	"erro": false
+  }
   ```
 
 - **PUT /itens/:id**
@@ -238,8 +243,11 @@ npm run dev
 
   Esquema da resposta:
 
-  ```
-  "Item atualizado com sucesso."
+  ```json
+  {
+  	"msg": "Item atualizado com sucesso!",
+      	"erro": false
+  }
   ```
 
 - **DELETE /itens/:id**
@@ -449,12 +457,12 @@ npm run dev
 
 <div align='center'>
 
-## 💻  Time desenvolvedor:
+## 💻  Time de desenvolvimento:
 	
 
- **Gabriel Alves** - [GabrielAlvesFS](https://github.com/GabrielAlvesFS)
- **Jessica dos Santos** - [JessBispo](https://github.com/jessbispo)
- **Julia Zibordi** -  [juliazib](https://github.com/juliazib)
+ **Gabriel Alves** - [GabrielAlvesFS](https://github.com/GabrielAlvesFS)<br>
+ **Jessica dos Santos** - [JessBispo](https://github.com/jessbispo)<br>
+ **Julia Zibordi** -  [juliazib](https://github.com/juliazib)<br>
  **Magnus** - [MagnusBittencourt](https://github.com/MagnusBittencourt)
 
 ---
