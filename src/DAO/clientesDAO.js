@@ -63,7 +63,7 @@ const insereCliente = (dadosCliente) => {
             if (error) {
                 rej(error.message)
             } else {
-                res("Usuario $`{nome}` atualizado com sucesso.")
+                res({"msg": `Usuario de ${id} atualizado com sucesso.`})
             }
         })
 })
