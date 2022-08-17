@@ -36,8 +36,7 @@ export const insereCliente = async (req, res) => {
       res.status(200).json(insCliente)
     } catch (error) {
       res.status(400).json({
-        "msg" : error.message,
-        "erro" : "true"
+        "msg" : error
       })
     }
   }

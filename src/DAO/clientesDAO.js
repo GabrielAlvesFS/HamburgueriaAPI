@@ -43,12 +43,10 @@ const insereCliente = (dadosCliente) => {
     return new Promise ((res, rej) => {
         db.run(`INSERT INTO CLIENTES(nome, cpf,  data_nascimento,  telefone, email, endereco)  VALUES (?,?,?,?,?,?)`, Object.values(dadosCliente), (error, rows) => {
             if (error) {
-                rej(error.message)
+                rej(error)
             } else {
                 res({ 
-                "msg": `Cliente cadastrado com sucesso!`,
-                "pedido": rows,
-                "erro": false
+                "msg": `Cliente cadastrado com sucesso!`
               }) 
             }
         })
