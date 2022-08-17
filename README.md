@@ -1,300 +1,446 @@
 # :hamburger: Hamburgueria API
 
-## API Rest -  Hamburgueria
 ![image](https://img.shields.io/github/issues/GabrielAlvesFS/HamburgueriaAPI?color=%23B5A595&logo=GOT&logoColor=%23B5A595&style=plastic) 
 ![image](https://img.shields.io/github/forks/GabrielAlvesFS/HamburgueriaAPI?color=%23B5A595&logoColor=%23B5A595&style=plastic) 
 ![image](https://img.shields.io/github/stars/GabrielAlvesFS/HamburgueriaAPI?color=%23B5A595&style=plastic) 
 ![image](https://img.shields.io/github/license/GabrielAlvesFS/HamburgueriaAPI?color=%23B5A595&logoColor=%23B5A595&style=plastic)
 
-Projeto de conclusão do módulo 4 do curso de desenvolvimento Web Dev Full Stack da [Resilia Educação](https://www.resilia.com.br/). A proposta era criar uma API para gerenciamento de uma hamburgueria.
+Projeto de final de módulo do curso de Web Dev Full Stack da [Resilia Educação](https://www.resilia.com.br/) referente ao Módulo 4.
 
-## :wrench: Ferramentas: 
- -   VS Code
- -   Insomnia ou Postman
- -   Git
- -   GitHub
- -   Node.js
- -   Express
- -   SQLite
- -   HEROKU
+Projeto realizado utilizando o [Node.js](https://nodejs.org/en/) com framework [Express](https://expressjs.com/). SQLite3 foi utilizado como banco de dados do projeto.
+
+## :heavy_check_mark: Pré-Requisitos
+
+- [Node.js](https://nodejs.org/en/) - v. 16.15.1
+- [NPM](https://www.npmjs.com/package/npm/v/8.11.0) - v. 8.11.0
+
+## :outbox_tray: Packages
+
+- [Express](https://expressjs.com/) - v. 4.18.1
+- [Nodemon](https://www.npmjs.com/package/nodemon) - v. 2.0.19
+- [SQLite](https://www.npmjs.com/package/sqlite3) - v. 5.0.11
+- [Cors](https://www.npmjs.com/package/cors) - v. 2.8.5
+- [Jest](https://www.npmjs.com/package/jest) - v. 28.1.3
  
-## ✔ Checklist dos requisitos do projeto:
+## :rocket: Instalação da Aplicação
 
-1. [x] Utilizar o padrão MVC;
-2. [x] Utilizar os verbos HTTP seguindo o padrão REST;
-3. [x] Implementar todas as operações de CRUD;
-4. [x] Utilizar o padrão de projeto (design pattern) DAO para abstração de transações no
-banco, com Promises;
-5. [x] Utilizar o README.md do repositório para documentação;
-6. [x] Utilização de async/await para operações no banco
-7. [x] Ter o código fonte hospedado em um repositório no Github
+Abra o terminal/Powershell e rode os comandos abaixo:
 
- 
- ## Dependências utilizadas:
+Clonando o repositório:
 
-![Badge](https://img.shields.io/badge/"nodemon"-"%5E2.0.15"-orange)
-![Badge](https://img.shields.io/badge/"express"-"%5E4.17.1"-orange)
-![Badge](https://img.shields.io/badge/"sqlite3"-"%5E5.0.2"-orange)
-![Badge](https://img.shields.io/badge/"cors"-"%5E5.0.2"-orange)
-![Badge](https://img.shields.io/badge/"path"-"%5E5.0.2"-orange)
-![Badge](https://img.shields.io/badge/"url"-"%5E5.0.2"-orange)
+```
+git clone https://github.com/GabrielAlvesFS/HamburgueriaAPI
+```
 
- ## Url para Requisições
- 
- HEROKU 
- ```
- 	Inserir link aqui
- ```
-  
- ## Para instalar o projeto na sua máquina, siga as instruções a seguir usando os comandos descritos:
+Entrando na pasta:
 
- 1. INSTALAR [Node JS](https://nodejs.org/en/) NA SUA MÁQUINA. 
- 
- 2. CLONAR ESSE REPOSITÓRIO: 
- ```
-     git clone [API REST](https://github.com/GabrielAlvesFS/HamburgueriaAPI)
- ```
+```
+cd HamburgueriaAPI
+```
 
-3. ACESSAR A PASTA CRIADA ATRAVÉS DO CMD USANDO O COMANDO: 
- ```
-      cd HamburgueriaAPI
- ```      
-4. INSTALAR DEPENDÊNCIAS:
- ```
-      npm install
-  ```     	    
-5. INICIANDO O SERVIDOR:
- ```
-      npm run dev
- ```
+Instalando os pacotes:
 
-## ROTAS E MÉTODOS Entidade Cliente (Mudar aqui):
+```
+npm install
+```
 
-| Método | Rota | Descrição |
-| ------ | ----- | ----------- |
-| **GET** | `/colaboradores` | Retorna toda a tabela de colaboradores |
-| **GET** | `/colaboradores/{matricula_colaborador}` | Retorna um colaborador com base na matrícula informada no endpoint |
-| **POST** | `/colaboradores` | Popula a entidade colaboradores  |
-| **PUT** | `/colaboradores/{matricula_colaborador}` | Atualiza os dados de um colaborador com base na matrícula informada no endpoint |
-| **DELETE** | `/colaboradores/` | Exclui a tabela colaboradores |
-| **DELETE** | ` /colaboradores/{matricula_colaborador}` | Exclui os registros de um colaborador com base na matrícula informada no endpoint |
+Criando e populando o banco de dados:
 
-> Modelo de requisição para o metódo POST:
+```
+npm run database
+```
 
-``` 
+Rodando o projeto:
+
+```
+npm run dev
+```
+
+## :pencil: Rotas HTTP implementadas
+
+### 📦Entregadores
+
+- **GET /entregadores**
+
+  Retorna todos os entregadores do banco. Esquema da resposta:
+
+  ```json
+   {
+    "entregadores": [
+      {
+        	"id": 1,
+	  	"nome": "Antonella Liz Alves",
+	  	"cpf": "348.816.098-07",
+	  	"telefone": "(88)99796-7405"
+      },
+      {
+      	"id":2,
+      	"nome":"Nicolas Carlos Gabriel Aparício",
+      	"cpf":"775.212.381-17",
+      	"telefone":"(68)99149-6709"}
+    ]
+  }
+  ```
+
+- **GET /entregadores:/id**
+
+  Retorna o entregador correspondente ao id. Esquema da resposta:
+
+  ```json
   {
-    "nome_colaborador": "Andressa Ricardo de Amorim",
-    "cpf_colaborador": "433.199.143-47",
-    "endereco_colaborador": "Av. Edgard Romero nº 87, Madureira, Rio de Janeiro - RJ",
-    "cargo_colaborador": "Administrador contábil",
-    "email_colaborador": "homerolinspaiva81@oi.com.br",
-    "telefone_colaborador": "(21)98416-2188",
-    "turno_colaborador": "Noite",
-    "salario_colaborador": "R$ 2.165,30",
-    "admissao_colaborador": "13/07/2019",
-    "demissao_colaborador": "null"
+    "entregadores":
+      {
+        	"id": 1,
+	  	"nome": "Antonella Liz Alves",
+	  	"cpf": "348.816.098-07",
+	  	"telefone": "(88)99796-7405"
+      }
+  ```
+
+- **POST /entregadores**
+
+  Insere um entregador na base de dados. Esquema da requisição:
+
+  ```json
+  {
+    "nome":"Fábio Roberto Igor Castro",
+    "cpf":"434.902.992-30",
+    "data_nascimento":"1957-03-04",
+    "telefone":"(65)98290-8843",
+    "email":"fabio-castro80@phocus.com.br",
+    "endereco":"Rua Onze, 625, Boa Esperança, Cuiabá, MT"
+  }
+  ```
+
+  Esquema da resposta
+
+  ```json
+  {
+    "mensagem": "Pessoa entregadora inserida com sucesso!",
+    "erro": false
+  }
+  ```
+
+- **PUT /entregadores/:id**
+
+  Atualiza um entregador de acordo com o id. Esquema da requisição:
+
+  ```json
+  {
+    "nome":"Carlos Roberto Igor Castro",
+    "cpf":"435.902.992-30",
+    "data_nascimento":"1957-04-04",
+    "telefone":"(65)98290-8443",
+    "email":"carlos-castro80@phocus.com.br",
+    "endereco":"Rua Doze, 625, Boa Esperança, Cuiabá, MT"
+  }
+  ```
+
+  Esquema da resposta:
+
+  ```json
+  {
+    "msg": "Pessoa entregadora de id ${id} atualizada com sucesso!"
+  }
+  ```
+
+- **DELETE /entregadores/:id**
+
+  Deleta um entregador de acordo com o id. Esquema da resposta:
+
+  ```json
+  {
+    "msg": "Pessoa entregadora de id ${id} deletada com sucesso"
+  }
+  ```
+### :fork_and_knife: Item
+
+  - **GET /itens**
+     <p>Lista todos os itens cadastrados</p>
+    <p>Esquema da resposta:</p>
+
+    ```json
+       
+    {
+      "Item": [
+        {
+          "id": 1,
+	  "tipo":"Hambúrguer",
+	  "nome":"Blend Artesanal",
+	  "descricao":"Pão de Brioche tostado na manteiga, queijo, carne 160g, Bacon, Ovo, Cebola Roxa, molho artesanal + batata frita.",
+	  "valor":25,
+	  "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007778949608255488/unknown.png"
+        },
+        {
+          "id": 2,
+	  "tipo":"Hambúrguer","nome":"Blend Rings","descricao":"Pão de Brioche tostado na manteiga, cream cheese, carne 160g, Bacon, Barbecue, 3 onions rings, Alface, molho artesanal + batata frita.",
+	  "valor":26,
+	  "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007779038921760798/unknown.png"
+        }
+      ]
     }
-```
-> RETORNA - 
+     ```
 
-## ROTAS E MÉTODOS Entidade Entregadores (Mudar aqui):
+- **GET /itens/:id**
 
-| Método | Rota | Descrição |
-| ------ | ----- | ----------- |
-| **POST** | `/produtos/criar` |Cria um novo produto|
-| **GET** | `/produtos` | Lista todos os produtos |
-| **GET** | `/produtos/pesquisa/ean/{codigoDeBarras}` | Retorna o produto especificado |
-| **GET** | `/produtos/pesquisa/nome` | Pesquisa Produto pelo nome |
-| **GET** | `/produtos/pesquisa/fornecedor/{id}` | Pesquisa fornecedor de acordo o ID|
-| **PUT** | `/produtos/editar/{codigoDeBarras}` | Atualiza produtos de acordo atualização direta ou código de barras|
-| **DELETE** | `/produtos/apagar/{id}` | Deleta produto de acordo o seu {id} |
+  <p>Lista o registro do item com determinado id. O número do id deve ser passado como parâmetro na rota.</p>
 
-Modelo de requisição para o método GET
+  <p>Esquema da resposta:</p>
 
-```
-   {
-    "nome":"REFINADO"
-   }
-   
-```
-> RETORNA - 
+  ```json
+          {
+             "id": 16,
+	     "tipo":"Sobremesa",
+	     "nome":"Brigadeiros Recheados | 4 Unid",
+	     "descricao":"Brigadeiro incrível à base de chocolate branco e coco queimado, recheado com uma esfera de chocolate belga e ganache de chocolate. A caixa contém 4 unidades.",
+	     "valor":28.9,
+	     "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007787519074652170/202208121525_JOM1_i.JPEG"
+          }
+  ```
 
-## ROTAS E MÉTODOS Entidade Item Pedido (Mudar aqui):
+- **POST /itens**
+  <p>Insere um registro de item. 
+  
+  No <em>body</em> da requisição deve ser passado apenas <em>tipo</em>, <em>nome</em>, <em>descricao</em>, <em>valor</em> e <em>url_img</em> como atributos, pois o id é gerado por autoincremento.</p>
 
-| Método | Rota | Descrição |
-| ------ | ----- | ----------- |
-| **GET** | `/cardapio/tudo` | Retorna todos dados existente na tabela entidade_cardapio.|
-| **GET** | `/cardapio/resumo` | Retorna os itens do cardapio, com os atributos sabor_cardapio, tamanho_cardapio, valor_cardapio.|
-| **GET** | `/cardapio/sabor/{sabor}` | Retorna os itens do cardapio cujo sabor seja igual ao do parametro da requisição.|
-| **GET** | `/cardapio/categoria/{categoria}` | Retorna os itens do cardapio cuja categoria seja igual ao do parametro da requisição. |
-| **GET** | `/cardapio/id/{id}` | Retorna o item do cardápio cujo Id seja o mesmo que foi informado no endpoint. |
-| **POST** | `/cardapio/novo` | Insere um novo item no cardapio conforme os dados informados no corpo da requisição.|
-| **PUT** | `/cardapio/{id}` | Atualiza os dados do item do cardapio que possua o Id informado no endpoint.|
-| **DELETE** | `/cardapio/delete/{id}` | Exclui o item do cardapio cujo ID seja o mesmo que foi informado no endpoit.|
+  <p>Esquema da requisição:</p>
 
-**Modelo de requisição para o metódo POST:**
+  ```json
+          {
+              "tipo":"Hambúrguer",
+	      "nome":"Hambúrguer Picanha Cheddar",
+	      "descricao":"Pão de brioche caramelizado, hambúrguer de picanha, bacon, pasta cheddar, cebola caramelizada e cream cheese.",
+	      "valor":21,
+	      "url_img":"https://cdn.discordapp.com/attachments/961274170841399306/1007780354104500295/unknown.png"
+          }
+  ```
 
-```
-{
-    "categoria_cardapio" : "Pizza Salgada",
-    "sabor_cardapio" : "Calabresa",
-    "ingredientes_cardapio" : "Queijo Mussarela, molho de tomate, linguiça calabresa, cebola e orégano",
-    "tamanho_cardapio" : "Brotinho",
-    "valor_cardapio" : "R$15,00"
-}
+  <p>Esquema da resposta:</p>
 
-```
-> RETORNA - mensagem de sucesso {message: "Cadastrado com sucesso!"} ou mensagem de erro {"Verifique o item. Objeto não cadastrado"}.
+  ```
+  "Item cadastrado com sucesso."
+  ```
 
-**Modelo de requisição para o metódo PUT:**
+- **PUT /itens/:id**
+  <p>Atualiza um registro específico de item com determinado id. O número do id deve ser passado como parâmetro na rota, e a requisição deve ter um <em>body</em>.</p>
+  <p>Esquema da requisição:</p>
 
-```
-{
-    "categoria_cardapio" : "Pizza Salgada",
-    "sabor_cardapio" : "Calabresa",
-    "ingredientes_cardapio" : "Queijo Mussarela, molho de tomate, linguiça calabresa, cebola e orégano",
-    "tamanho_cardapio" : "Brotinho",
-    "valor_cardapio" : "R$15,00"
-}
+  ```json
+          {
+	      "tipo":"Aperitivos",
+	      "nome":"Mini Pastel de Carne (200g)",
+	      "descricao":"10 Deliciosos mini pastéis de carne bem sequinho e crocante",
+	      "valor":18.88,
+	      "url_img":"https://cdn.discordapp.com/attachments/970876881278750801/1007790959003705404/1-kg-de-massa-de-pastel-rende-quantos-mini-pasteis.jpg.webp"
+          }
+  ```
 
-```
-> RETORNA - mensagem de sucesso {message: "A Bebida Suco Natural foi atualizada com sucesso!"} ou mensagem de erro {"Verifique o item. Objeto não atualizado"}.
+  Esquema da resposta:
 
-**Modelo de requisição para o metódo DELETE:**
+  ```
+  "Item atualizado com sucesso."
+  ```
 
-```
-{
-    "categoria_cardapio" : "Pizza Salgada",
-    "sabor_cardapio" : "Calabresa",
-    "ingredientes_cardapio" : "Queijo Mussarela, molho de tomate, linguiça calabresa, cebola e orégano",
-    "tamanho_cardapio" : "Brotinho",
-    "valor_cardapio" : "R$15,00"
-}
+- **DELETE /itens/:id**
+  <p>Apaga um registro específico, conforme o id passado como parâmetro na rota.</p>
+  <p>Esquema da resposta:</p>
 
-```
-> RETORNA - mensagem de sucesso {"message": "Registro com Id <Id> deletado com sucesso"} ou mensagem de erro.
+  ```
+  "Item deletado com sucesso."
+  ```
 
+### :clipboard: Item pedido
 
-1. <h4>Validações:</h4>
+- **GET /itemPedido**
 
-	- O valor correspondente a chave "categoria_cardapio" deve estar contido na lista ['Bebida', 'Pizza Salgada', 'Pizza Doce'];
-	- O valor correspondente a chave "sabor_cardapio" deve ser uma string e não pode estar vazia;
-	- O valor correspondente a chave "ingredientes_cardapio" deve ser uma string e não pode estar vazia;
-	- O valor correspondente a chave "tamanho_cardapio" deve estar contido na lista ['Brotinho', 'Média', 'Grande', 'Família', 'Lata', "1 litro", '2 litros', '400ml',];
-	- O valor correspondente a chave "valor_cardapio" deve ser um dado do tipo string que utilize os caracteres da lista '0123456789.,R$', espaços não são permitidos;
-	- Case-sensitive.  
+  Retorna todos os itens pedidos. Esquema da resposta:
 
+  ```json
+  {
+    "Item": [
+        {
+            "id": 1,
+	    "pedido_id": 1,
+	    "item_id":1,
+	    "quantidade_itens":1
+        },
+        {
+            "id":2,
+	    "pedido_id":1,
+	    "item_id":8,
+	    "quantidade_itens":7
+        },
+      ]
+  }
 
-## ROTAS E MÉTODOS Entidade Item:
+- **GET /itemPedido/:pedido_id**
 
-| Método | Rota | Descrição |
-| ------ | ----- | ----------- |
-| **GET** | `/itens` | Retorna todos os itens cadastrados no banco de dados.|
-| **GET** | `/itens/:id` | Recebe um ID e retorna o item correspondente cadastrado no banco de dados.|
-| **POST** | `/itens` | Realiza o cadastro de um novo item no banco de dados. |
-| **PUT** | `/itens/:id` | Recebe um ID e atualiza o cadastro do item correspondente no banco de dados. |
-| **DELETE** | `/itens/:id` | Recebe um ID e exlcui o cadastro do item correspondente do banco de dados. |
+  Retorna o item pedido correspondente ao id. Esquema da resposta:
 
-**Modelo de requisição para o metódo POST:**
-
-```
-{
-    "tipo": "Bebidas",
-    "nome": "Suco de laranja",
-    "descricao": "Suco de laranja natural 300 ml",
-    "valor": 3.50,
-    "url_img": "shorturl.at/cgQV4"
-}
-
-```
-> RETORNA - Cadastra um novo item na base de dados.
-
-
-**Modelo de requisição para o metódo PUT:**
-
-```
-{
-    "tipo": "Bebidas",
-    "nome": "Limonada",
-    "descricao": "Limonada 300 ml sem açúcar",
-    "valor": 3.50,
-    "url_img": "shorturl.at/mVYZ4"
-}
-
-```
-> RETORNA - Mensagem de sucesso: "Item atualizado com sucesso."
-            Mensagem de erro: "Não foi possível atualizar o item."
-	    
-1. <h4>Validações:</h4> Vamos ter isso aqui???
-
-	- O valor de "nome_cliete" deve conter ao menos 3 caracteres;
-	- O valor de "cpf_cliente" deve conter exatos 11 caracteres;
-	- O valor de "endereco_cliente" deve ser uma string e não pode estar vazia;
-	- O valor de "email_cliente" deve ser uma estrutura de email válida, com "@", e ".com".
-	- O valor de "telefone_cliente" deve conter exatos 11 caracteres; 
-
-
-## ROTAS E MÉTODOS Entidade Pedidos (Mudar aqui):
-
-| Método | Rota | Descrição |
-| ------ | ----- | ----------- |
-| **GET** | `/fornecedores` | Retorna todos dados existente na tabela da entidade_fornecedores|
-| **GET** | `/fornecedores/{id}` | Retorna o cliente selecionado pelo ID selecionado.|
-| **POST** | `/fornecedores/` | Insere um novo cadastro de fornecedores no banco de dados|
-| **PUT** | `/fornecedores/{id}` | Atualiza através do ID selecionado o cadastro do fornecedor.|
-| **DELETE** | `/fornecedores/{id}` | Deleta o fornecedor selecionado pelo ID.|
-
-> *Números dos id's cadastrados: 4, 6, 7 e 8.*
-
-**Modelo de requisição para o metódo POST:**
-
-```
-{
-  	"nome_fornecedor": "Layse Mayanne",
-        "cnpj_fornecedor": "44.438.256/0001-38",
-        "endereco_fornecedor": "Rua cimento nobre 405",
-        "ramo_fornecedor": "Atacadista",
-        "email_fornecedor": "atacados@gmail.com",
-        "telefone_fornecedor": "(83)3364-8575"
-}
-
-```
-> RETORNA - mensagem de sucesso {message: "Fornecedor cadastrado com sucesso."} ou mensagem de erro {"Não foi possível efetuar o cadastro do fornecedor"}.
-
-**Modelo de requisição para o metódo PUT:**
-
-```
-   {
-        "nome_fornecedor": "Layse Mayanne",
-        "cnpj_fornecedor": "44.438.256/0001-38",
-        "endereco_fornecedor": "Rua cimento nobre 405",
-        "ramo_fornecedor": "Atacadista",
-        "email_fornecedor": "atacados@gmail.com",
-        "telefone_fornecedor": "(83)3364-8575"
+  ```json
+  {
+    "id":3,
+    "pedido_id":2,
+    "item_id":6,
+    "quantidade_itens":1
     }
+  ```
 
-```
-> RETORNA - mensagem de sucesso {message: "Fornecedor atualizado!"}.
+- **POST /itemPedido**
 
-**Modelo de requisição para o metódo DELETE:**
+  Insere um item pedido na base de dados. Esquema da requisição:
 
-```
-   {
-        "nome_fornecedor": "Layse Mayanne",
-        "cnpj_fornecedor": "44.438.256/0001-38",
-        "endereco_fornecedor": "Rua cimento nobre 405",
-        "ramo_fornecedor": "Atacadista",
-        "email_fornecedor": "atacados@gmail.com",
-        "telefone_fornecedor": "(83)3364-8575"
+  ```json
+  {
+    "pedido_id": 6, 
+    "item_id":11,
+    "quantidade_itens": 2
+  }
+  ```
+
+  Esquema da resposta
+
+  ```json
+  {
+    "msg": "Item do Pedido cadastrado com sucesso!",
+    "erro": false
+  }
+  ```
+
+- **PUT /itemPedido/:id**
+
+  Atualiza um item pedido de acordo com o id. Esquema da requisição:
+
+  ```json
+  {
+    "item_id":11,
+    "quantidade_itens": 1
+  }
+  ```
+
+  Esquema da resposta:
+
+  ```json
+  {
+    "msg": "Item do pedido atualizado com sucesso!"
+  }
+  ```
+
+- **DELETE /itemPedido/:id**
+
+  Deleta um item pedido de acordo com o id. Esquema da resposta:
+
+  ```json
+  {
+    "msg": "ItemPedido de id deletado com sucesso!"
+  }
+  ```
+
+### 👨‍👩‍👧‍👦 Clientes
+
+- **GET /clientes**
+
+  Retorna todos os clientes do banco. Esquema da resposta:
+
+  ```json
+      {
+      "Clientes": [
+          {
+              "Id":1,
+	      "nome":"Anthony Giovanni da Luz",
+	      "cpf":"552.872.396-53",
+	      "data_nascimento":"1961-03-24",
+	      "telefone":"(67)99680-4974",
+	      "email":"anthony_daluz@facebook.com","endereco":"Rua Santo Antônio, 830, Industrial, Corumbá, MS"
+          },
+          {
+              "Id":2,
+	      "nome":"Nair Lúcia Josefa Alves",
+	      "cpf":"294.903.563-95",
+	      "data_nascimento":"1998-04-02",
+	      "telefone":"(11)99535-1637",
+	      "email":"nair.lucia.alves@uel.br",
+	      "endereco":"Rua Estampa Esportiva, 921, Americanópolis, São Paulo, SP "
+          }
+      ]
     }
+  ```
 
-```
-> RETORNA - mensagem de sucesso {"message": "Fornecedor deletado!"} ou mensagem de erro.
+- **GET /clientes/:id**
 
+  Retorna o cliente correspondente ao id. Esquema da resposta:
 
+  ```json
+  {
+    {
+    "Id":4,
+    "nome":"Eliane Allana Malu Figueiredo",
+    "cpf":"030.012.391-40",
+    "data_nascimento":"1963-05-03",
+    "telefone":"(79)98866-9472",
+    "email":"eliane_allana_figueiredo@procivil.com.br",
+    "endereco":"Rua Toney Makey do Nascimento Silva, 766, 17 de Março, Aracaju, SE"
+    }
+    
+  }
+  ```
 
+- **POST /clientes**
 
+  Insere um cliente na base de dados. Esquema da requisição:
 
+  ```json
+    {
+    "nome":"Arnoldo Roberto Igor Castro",
+    "cpf":"484.902.992-30",
+    "data_nascimento":"1957-09-04",
+    "telefone":"(65)98290-8943",
+    "email":"arnoldo-castro80@phocus.com.br",
+    "endereco":"Rua Dez, 625, Boa Esperança, Cuiabá, MT"
+    }
+  ```
+
+  Esquema da resposta
+
+  ```json
+    {
+      "msg": "Cliente cadastrado com sucesso!",
+      "erro": false
+      }
+  ```
+
+- **PUT /clientes/:id**
+
+  Atualiza um cliente de acordo com o id. Esquema da requisição:
+
+  ```json
+    {
+    "nome":"Nair Lúcia Josefa Alves",
+    "cpf":"294.903.563-95",
+    "data_nascimento":"1998-04-02",
+    "telefone":"(11)99535-1637",
+    "email":"nair.lucia.alves@uel.br",
+    "endereco":"Rua Estampa Esportiva, 921, Americanópolis, São Paulo, SP "
+    }
+  ```
+
+  Esquema da resposta:
+
+  ```json
+    {
+    "msg": "Usuario de id atualizado com sucesso."
+    }
+  ```
+
+- **DELETE /clientes/:id**
+
+  Deleta um cliente de acordo com o id. Esquema da resposta:
+
+  ```json
+    {
+    "msg": "Cliente de id deletado com sucesso!"
+    }
+  ```
 
 ## Status do Projeto
 ![Bagde](https://img.shields.io/badge/Status%20do%20Projeto-Concluído-orange)
@@ -310,4 +456,3 @@ Modelo de requisição para o método GET
  **Magnus** - [MagnusBittencourt](https://github.com/MagnusBittencourt)
 
 ---
-[⬆ Voltar ao Topo]()
