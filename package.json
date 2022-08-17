@@ -9,7 +9,7 @@
     "start": "node ./src/server.js",
     "test": "jest",
     "database": "cd src/database & node create-and-populate.js",
-    "heroku": "cd src/database && node create-and-populate.js && node ./src/server.js"
+    "heroku": "node ./src/database/create-and-populate.js"
   },
   "repository": {
     "type": "git",
