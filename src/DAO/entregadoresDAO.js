@@ -1,4 +1,3 @@
-import { application } from "express";
 import db from "../database/database.js";
 
 export const listarEntregadores = () => {
@@ -66,4 +65,18 @@ export const atualizarEntregador = (novo, id) => {
             }
         )
     })  
+}
+
+export const deletarEntregadores = (id) => {
+    const query = `DELETE FROM ENTREGADORES WHERE id = ${id}`
+   
+    return new Promise((resolve, reject) => {
+        db.run(query, (error) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(`Pessoa entregadora de id ${id} deletada com sucesso`)
+            }
+        })
+    })
 }

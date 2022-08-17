@@ -1,4 +1,4 @@
-import { listarEntregadores, listarEntregador, criarEntregador, atualizarEntregador } from "../DAO/entregadoresDAO.js"
+import { listarEntregadores, listarEntregador, criarEntregador, atualizarEntregador, deletarEntregadores } from "../DAO/entregadoresDAO.js"
 
 
 export class Entregadores {
@@ -44,6 +44,16 @@ export const putEntregador = async (entregador, id) => {
     try {
         const resposta = await atualizarEntregador(entregador, id)
         if(!resposta) throw new Error("Não foi possível atualizar!")
+        return resposta
+    } catch (error) {
+        throw error
+    }
+}
+
+export const deleteEntregador = async (id) => {
+    try {
+        const resposta = await deletarEntregadores(id)
+        if(!resposta) throw new Error("Não foi possível deletar!")
         return resposta
     } catch (error) {
         throw error
