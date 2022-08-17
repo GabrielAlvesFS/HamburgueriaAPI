@@ -1,4 +1,5 @@
 import { listarItensPedidos, listarItensPedido, cadastrarItemPedido, somaItensPedido, alterarItemPedido, removerItemPedido } from "../DAO/itemPedidoDAO.js";
+import { validaIDs, validaQTD } from "../services/validacao-itemPedidos.js";
 
 export class ItemPedido {
     constructor(pedido_id, item_id, quantidade_itens){
@@ -30,6 +31,15 @@ export const getItensPedido = async (pedido_id) => {
 
 export const postItensPedido = async (itemPedido) => {
     try {
+        const pedido_id = Object.values(itemPedido)[0]
+        const item_id = Object.values(itemPedido)[1]
+        const quantidade_itens = Object.values(itemPedido)[2]
+
+        validaIDs(pedido_id)
+        validaIDs(item_id)
+        console.log(quantidade_itens)
+        validaQTD(quantidade_itens)
+
         const newItemPedido = await cadastrarItemPedido(itemPedido)
         if (!newItemPedido) throw new Error("Não foi possível cadastrar o Item do pedido")
         return newItemPedido
