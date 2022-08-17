@@ -103,6 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-#Database
-database/
-.database.db
+# #Database
+# database/
+# .database.db
