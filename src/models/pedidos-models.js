@@ -1,4 +1,5 @@
 import { listarPedidos, listarPedido, cadastrarPedido, alterarPedido, removerPedido, atualizarValorPedido } from "../DAO/pedidosDAO.js";
+import { validaData, validaID, validaMetodoPagamento, validaStatus } from "../services/validacao-pedidos.js";
 
 export class Pedidos {
     constructor(cliente_id, entregador_id, data_pedido, status_pedido, valor_total, metodo_pagamento){
@@ -33,6 +34,14 @@ export const getPedido = async (id) => {
 
 export const postPedido = async (dadosPedido) => {
     try {
+        const id = Object.values(dadosPedido)[0]
+        const data = Object.values(dadosPedido)[2]
+        const metodoPagamento = Object.values(dadosPedido)[3]
+
+        validaID(id)
+        validaData(data)
+        validaMetodoPagamento(metodoPagamento)
+
         const newPedido = await cadastrarPedido(dadosPedido)
         if (!newPedido) throw new Error("Não foi possível cadastrar o seu pedido")
         return newPedido
@@ -43,6 +52,13 @@ export const postPedido = async (dadosPedido) => {
 
 export const putPedido = async (id, novosDados) => {
     try {
+        const entregador_id = Object.values(novosDados)[0]
+        const status = Object.values(novosDados)[1]
+        const metodoPagamento = Object.values(novosDados)[2]
+        
+        validaID(entregador_id)
+        validaStatus(status)
+        validaMetodoPagamento(metodoPagamento)
         const updPedido = await alterarPedido(id, novosDados)
         return updPedido
     } catch (error) {
