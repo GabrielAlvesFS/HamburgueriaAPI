@@ -38,14 +38,14 @@ const listarPedido = (id) => {
 const cadastrarPedido = (dadosPedido) => {
     const query = `INSERT INTO PEDIDOS (cliente_id, entregador_id, data_pedido, metodo_pagamento) VALUES (?, ?, ?, ?)`
     return new Promise ((resolve, reject) => {
-        db.run(query, Object.values(dadosPedido), (error, rows) => {
+        db.run(query, Object.values(dadosPedido), function (error, rows) {
             if (error) {
                 reject(error)
             }
             else {
                 resolve({
                     "msg": `Pedido cadastrado com sucesso!`,
-                    "pedido": rows,
+                    "pedido_id": this.lastID,
                     "erro": false
                 })  
             }    

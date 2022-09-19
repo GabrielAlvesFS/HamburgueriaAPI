@@ -62,13 +62,14 @@ const cadastrarItemPedido = (itemPedido) => {
     const query = `INSERT INTO ITEM_PEDIDO (pedido_id, item_id, quantidade_itens) VALUES (?, ?, ?)`
 
     return new Promise ((resolve, reject) => {
-        db.run(query, Object.values(itemPedido), (error) => {
+        db.run(query, Object.values(itemPedido), function (error) {
             if (error) {
                 reject(error)
             }
             else {
                 resolve({
                     "msg": `Item do Pedido cadastrado com sucesso!`,
+                    "itemPedido_id": this.lastID,
                     "erro": false
                 })  
             }
