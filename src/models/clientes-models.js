@@ -1,4 +1,4 @@
-
+import { validaIdCliente, validaCliente, validaSeTemDados } from "../services/validacao-clientes.js";
  import {recebeCliente, recebeClientes, insereCliente, atualizaCliente, deletaCliente } from "../DAO/clientesDAO.js"
  
  export class ClientesM {
@@ -14,9 +14,9 @@
 
 export const getClientes = async () => {
     try {
-        const dados = await recebeClientes()
-        if (!dados) throw new Error("Não foi possivel encontrar os dados dos clientes")
-        return dados 
+        const pegaClientes = await recebeClientes()
+        if (!pegaClientes) throw new Error("Não foi possivel encontrar os dados dos clientes")
+        return pegaClientes 
     } catch (error) {
         throw error 
     }
@@ -24,9 +24,11 @@ export const getClientes = async () => {
 
 export const getClienteById = async (id) => {
     try {
-        const dados = await recebeCliente(id)
-        if (!dados) throw new Error("Não foi possivel encontrar os dados do cliente")
-        return dados 
+        const pegaCliente = await recebeCliente(id)
+        if (!pegaCliente) throw new Error("Não foi possivel encontrar os dados do cliente")
+        validaIdCliente(id)
+        validaSeTemDados(pegaCliente)
+        return pegaCliente 
     } catch (error) {
         throw error 
     }
@@ -36,9 +38,11 @@ export const getClienteById = async (id) => {
 
 export const insertCliente = async (dadosCliente) => {
     try {
-        const dados = await insereCliente(dadosCliente)
-        if (!dados) throw new Error("Não foi possivel inserir dados do cliente")
-        return dados 
+        const insCliente = await insereCliente(dadosCliente)
+        if (!insCliente) throw new Error("Não foi possivel inserir dados do cliente")
+        validaIdCliente(dadosCliente)
+        validaSeTemDados(insCliente)
+        return insCliente 
     } catch (error) {
         throw error 
     }
@@ -46,9 +50,11 @@ export const insertCliente = async (dadosCliente) => {
 
 export const updateCliente = async (novosDadosCliente, id) => {
     try {
-        const dados = await atualizaCliente(novosDadosCliente, id)
-        if (!dados) throw new Error("Não foi possivel atualizar os dados do cliente")
-        return dados 
+        validaIdCliente(id)
+        const attCliente = await atualizaCliente(novosDadosCliente, id)
+        if (!attCliente) throw new Error("Não foi possivel atualizar os dados do cliente")
+        validaSeTemDados(attCliente)
+        return attCliente 
     } catch (error) {
         throw error 
     }
@@ -58,9 +64,11 @@ export const updateCliente = async (novosDadosCliente, id) => {
 export const deleteCliente = async (id) => {
     try {
         //await recebeCliente(id)
-        const dados = await deletaCliente(id)
-        if (!dados) throw new Error("Não foi possivel deletar os dados do cliente")
-        return dados 
+        validaIdCliente(id)
+        const delCliente = await deletaCliente(id)
+        if (!delCliente) throw new Error("Não foi possivel deletar os dados do cliente")
+        validaSeTemDados(delCliente)
+        return delCliente 
     } catch (error) {
         throw error 
     }
