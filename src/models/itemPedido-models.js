@@ -37,7 +37,6 @@ export const postItensPedido = async (itemPedido) => {
 
         validaIDs(pedido_id)
         validaIDs(item_id)
-        console.log(quantidade_itens)
         validaQTD(quantidade_itens)
 
         const newItemPedido = await cadastrarItemPedido(itemPedido)
