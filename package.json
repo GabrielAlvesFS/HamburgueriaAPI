@@ -5,8 +5,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "start": "node ./src/server.js",
+    "up:dev": "docker-compose up -d mongo",
+    "dev": "nodemon -r dotenv/config ./src/server.js",
+    "start": "node -r dotenv/config ./src/server.js",
     "test": "jest",
     "database": "cd src/database & node create-and-populate.js"
   },
@@ -22,8 +23,11 @@
   "homepage": "https://github.com/GabrielAlvesFS/HamburgueriaAPI#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "sqlite3": "^5.0.11"
+    "mongoose": "^6.6.2",
+    "sqlite3": "^5.0.11",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.6",
