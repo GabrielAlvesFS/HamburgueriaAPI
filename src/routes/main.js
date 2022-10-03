@@ -3,6 +3,8 @@ import entregadores from "./entregadoresRoutes.js"
 import itens from "./itemRoutes.js"
 import clientes from "./clientesRoutes.js";
 import itemPedido from "./itemPedidoRoutes.js"
+import user from "./userRoutes.js"
+import menu from "./menuRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -15,8 +17,9 @@ const routes = (app) => {
         pedidos,
         itens,
         clientes,
-        itemPedido
-
+        itemPedido,
+        user,
+        menu
     );
 }
 
