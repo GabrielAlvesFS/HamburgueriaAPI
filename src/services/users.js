@@ -1,12 +1,12 @@
 import user from "../models/userModel.js";
 
 // POST
-export const createUser = async(data) => {
+export const postUser = async(data) => {
   return await user.create(data);
 }
 
 // GET
-export const findUser = async(query) => {
+export const listUsers = async(query) => {
   return await user.find(query);
 }
 
