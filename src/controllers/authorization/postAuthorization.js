@@ -12,7 +12,7 @@ export default async (req, res) => {
       const user = await something// Aqui faz o get da tabela de admins
     }
 
-    const data = await compareHash(req.body.password, user.password > 'Não sei como pegar o hash, não sei se seria assim')
+    const data = await compareHash(req.body.password, user.password)
     res.send(data)
     
   } catch (error) {
