@@ -1,4 +1,4 @@
-import postUserValidator from "./validators/createUserValidator.js"
+import postUserValidator from "./validators/postUserValidator.js"
 import { postUser } from "../../services/users.js"
 import { logger } from "../../config/logger.js"
 import { hashValue } from "../../utils/bcrypt.js"
