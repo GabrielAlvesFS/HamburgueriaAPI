@@ -1,10 +1,11 @@
 import pedidos from "./pedidosRoutes.js";
-import entregadores from "./entregadoresRoutes.js"
-import itens from "./itemRoutes.js"
+import entregadores from "./entregadoresRoutes.js";
+import itens from "./itemRoutes.js";
 import clientes from "./clientesRoutes.js";
-import itemPedido from "./itemPedidoRoutes.js"
-import user from "./userRoutes.js"
+import itemPedido from "./itemPedidoRoutes.js";
+import user from "./userRoutes.js";
 import menu from "./menuRoutes.js";
+import auth from "./authRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -19,7 +20,8 @@ const routes = (app) => {
         clientes,
         itemPedido,
         user,
-        menu
+        menu,
+        auth
     );
 }
 
