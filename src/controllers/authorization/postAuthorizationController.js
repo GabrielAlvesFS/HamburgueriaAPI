@@ -1,11 +1,14 @@
 import jwt from "jsonwebtoken";
 import { listUsers } from "../../services/users.js";
 import { compareHash } from "../../utils/bcrypt.js";
+import postAuthorizationValidator from "./validators/postAuthorizationValidator.js";
 import { logger } from "../../config/logger.js";
 
 export default async (req, res) => {
   try {
     let user;
+
+    postAuthorizationValidator.parse(req.body)
 
     if(req.body.role == 'customer') {
       user = await listUsers({email: req.body.email})
@@ -40,7 +43,8 @@ export default async (req, res) => {
     
   } catch (error) {
     if (error.message === 'User not found!') return res.status(404).send({error: error.message})
-    if (error.message === 'Wrong password or email!') return res.status(403).send({error: error.message})
+    else if (error.message === 'Wrong password or email!') return res.status(403).send({error: error.message})
+    else if (error.name === "ZodError") return res.status(400).send(error.issues)
 
     logger.error(error)
     res.status(500).send({ error: "internal error"})
