@@ -1,5 +1,5 @@
 import express from "express";
-import postAuthorization from "../controllers/authorization/postAuthorization.js";
+import postAuthorization from "../controllers/authorization/postAuthorizationController.js";
 
 const router = express.Router();
 
