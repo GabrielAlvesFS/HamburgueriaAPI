@@ -9,3 +9,7 @@ export const postManager = async (data) => {
 export const listManagers = async (query) => {
   return await manager.find(query);
 }
+
+export const getManager = async (id) => {
+  return await manager.findById(id);
+}
