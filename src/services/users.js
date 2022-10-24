@@ -1,25 +1,25 @@
-import user from "../models/userModel.js";
+import userModel from "../models/userModel.js";
 
 // POST
 export const postUser = async(data) => {
-  return await user.create(data);
+  return await userModel.create(data);
 }
 
 // GET
-export const listUsers = async(query) => {
-  return await user.find(query);
+export const listUsers = async(query, filter) => {
+  return await userModel.find(query).select(filter);
 }
 
-export const getUser = async (id) => {
-  return await user.findById(id);
+export const getUser = async (id, filter) => {
+  return await userModel.findById(id).select(filter);
 }
 
 // PUT e PATCH
 export const updateUser = async (id, data) => {
-  return await user.updateOne({_id: id}, { $set: {...data} });
+  return await userModel.updateOne({_id: id}, { $set: {...data} });
 }
 
 // DELETE
 export const deleteUser = async (id) => {
-  return await user.deleteOne(id)
+  return await userModel.deleteOne(id)
 }
