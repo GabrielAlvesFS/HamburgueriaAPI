@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { listUsers } from "../../services/users.js";
+import { listManagers } from "../../services/manager.js";
 import { compareHash } from "../../utils/bcrypt.js";
 import postAuthorizationValidator from "./validators/postAuthorizationValidator.js";
 import { logger } from "../../config/logger.js";
@@ -15,7 +16,7 @@ export default async (req, res) => {
     }
 
     else if(req.body.role == 'manager') {
-      user = await something// Aqui faz o get da tabela de admins
+      user = await listManagers({email: req.body.email})
     }
 
     if (!user.length) throw new Error('User not found!')
@@ -27,6 +28,7 @@ export default async (req, res) => {
     const payload = {
       nome: user[0].name,  
       email: user[0].email,
+      roles: req.body.role,
       exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
     }
 
