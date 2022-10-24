@@ -8,7 +8,7 @@ export default async (req, res) => {
     getUserValidator.parse(req.params.id)
   
     //GET with ID
-    const data = await getUser(req.params.id)
+    const data = await getUser(req.params.id, "-password")
 
     //Verifying if ID exists
     if (!data) throw new Error("ID not found!")

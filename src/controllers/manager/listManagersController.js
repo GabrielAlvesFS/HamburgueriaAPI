@@ -8,7 +8,7 @@ export default async (req, res) => {
     listManagersValidator.parse(req.body)
 
     // Verifying if manager exists
-    const manager = await listManagers(req.body)
+    const manager = await listManagers(req.body, "-password")
     if (!manager.length) throw new Error("Manager not found!")
 
     res.status(200).send(manager)
