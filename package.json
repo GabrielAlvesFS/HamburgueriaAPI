@@ -6,6 +6,9 @@
   "main": "app.js",
   "scripts": {
     "up:dev": "docker-compose up -d mongo",
+    "migrate:mongo:create": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js create",
+    "migrate:mongo:up": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js up",
+    "migrate:mongo:down": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js down",
     "dev": "nodemon -r dotenv/config ./src/server.js",
     "start": "node -r dotenv/config ./src/server.js",
     "test": "jest",
