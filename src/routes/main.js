@@ -6,7 +6,7 @@ import itemPedido from "./itemPedidoRoutes.js";
 import auth from "./authRoutes.js";
 import manager from "./managerRoutes.js"
 import user from "./userRoutes.js";
-import menu from "./menuRoutes.js";
+import item from "./itemRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -23,7 +23,7 @@ const routes = (app) => {
         auth,
         manager,
         user,
-        menu
+        item
     );
 }
 
