@@ -1,13 +1,10 @@
-import express from 'express'
-import {listarItens, listarItemId, cadastrarItem, deletarItem, atualizarItem} from '../controllers/item-controller.js'
-
-const router = express.Router()
+import express from "express";
+import postItem from "../controllers/items/postItemController.js"
+import listItems from "../controllers/items/listItemsController.js";
+const router = express.Router();
 
 router
-    .get('/itens', listarItens)
-    .get('/itens/:id', listarItemId)
-    .post('/itens', cadastrarItem)
-    .delete('/itens/:id', deletarItem)
-    .put('/itens/:id', atualizarItem)
-
-export default router
+    .post("/v1/item", postItem)
+    .get("/v1/item", listItems)
+    
+export default router;  
