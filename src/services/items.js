@@ -18,3 +18,8 @@ export const getItem = async(id) => {
 export const updateItem = async(id, data) => {
   return await itemModel.updateOne({_id: id}, { $set: {...data} })
 }
+
+// DELETE
+export const deleteItem = async(id) => {
+  return await itemModel.deleteOne(id)
+}
