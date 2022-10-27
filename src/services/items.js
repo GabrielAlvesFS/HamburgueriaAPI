@@ -9,3 +9,12 @@ export const postItem = async(data) => {
 export const listItems = async(query) => {
   return await itemModel.find(query)
 }
+
+export const getItem = async(id) => {
+  return await itemModel.findById(id)
+}
+
+// PUT AND PATCH
+export const updateItem = async(id, data) => {
+  return await itemModel.updateOne({_id: id}, { $set: {...data} })
+}
