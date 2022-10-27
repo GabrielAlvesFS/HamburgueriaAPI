@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const menuSchema = new Schema ({
+const itemSchema = new Schema ({
   type: {type: String, required: true},
   name: {type: String, required: true},
   description: {type: String},
@@ -9,6 +9,6 @@ const menuSchema = new Schema ({
   imgUrl: {type: String, required: true},
 }, {timestamps: true})
 
-const menu = mongoose.model('Menu', menuSchema)
+const item = mongoose.model('Item', itemSchema)
 
-export default menu
+export default item;
