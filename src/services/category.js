@@ -18,3 +18,8 @@ export const getCategory = async (id) => {
 export const updateCategory = async (id, data) => {
   return await categoryModel.updateOne({_id: id}, { $set: {...data}})
 }
+
+// DELETE
+export const deleteCategory = async (id) => {
+  return await categoryModel.deleteOne(id)
+}
