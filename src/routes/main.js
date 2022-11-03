@@ -8,6 +8,7 @@ import manager from "./managerRoutes.js"
 import user from "./userRoutes.js";
 import item from "./itemRoutes.js";
 import complement from "./complementRoutes.js";
+import category from "./categoryRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -25,7 +26,8 @@ const routes = (app) => {
         manager,
         user,
         item,
-        complement
+        complement,
+        category
     );
 }
 
