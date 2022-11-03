@@ -16,5 +16,10 @@ export const getComplement = async (id) => {
 
 // PUT AND PATCH
 export const updateComplement = async (id, data) => {
-  return await complement.updateOne({_id: id}, {$set: {...data}})
+  return await complement.updateOne({_id: id}, {$set: {...data}});
+}
+
+// DELETE
+export const deleteComplement = async (id) => {
+  return await complement.deleteOne(id);
 }
