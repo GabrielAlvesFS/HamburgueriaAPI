@@ -3,6 +3,7 @@ import postComplement from '../controllers/complements/postComplementController.
 import listComplements from '../controllers/complements/listComplementsController.js';
 import getComplement from '../controllers/complements/getComplementController.js';
 import patchComplement from '../controllers/complements/patchComplementController.js';
+import deleteComplement from '../controllers/complements/deleteComplementController.js';
 
 const router = express.Router();
 
@@ -11,5 +12,6 @@ router
     .get("/v1/complement", listComplements)
     .get("/v1/complement/:id", getComplement)
     .patch("/v1/complement/:id", patchComplement)
+    .delete("/v1/complement/:id", deleteComplement)
 
 export default router;   
