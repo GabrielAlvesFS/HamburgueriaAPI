@@ -9,3 +9,7 @@ export const postComplement = async (data) => {
 export const listComplements = async (query) => {
   return await complement.find(query);
 }
+
+export const getComplement = async (id) => {
+  return await complement.findById(id);
+}
