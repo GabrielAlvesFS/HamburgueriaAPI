@@ -13,3 +13,8 @@ export const listComplements = async (query) => {
 export const getComplement = async (id) => {
   return await complement.findById(id);
 }
+
+// PUT AND PATCH
+export const updateComplement = async (id, data) => {
+  return await complement.updateOne({_id: id}, {$set: {...data}})
+}
