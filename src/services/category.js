@@ -13,3 +13,8 @@ export const listCategories = async (query) => {
 export const getCategory = async (id) => {
   return await categoryModel.findById(id);
 }
+
+// PUT AND PATCH
+export const updateCategory = async (id, data) => {
+  return await categoryModel.updateOne({_id: id}, { $set: {...data}})
+}
