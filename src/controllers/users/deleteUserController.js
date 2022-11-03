@@ -8,7 +8,7 @@ export default async (req, res) => {
     //Zod Validation
     deleteUserValidator.parse(req.params.id)
 
-    //Veryfing if user exists
+    //Verifying if user exists
     const user = await getUser(req.params.id)
     if (!user) throw new Error("ID not found!")
     

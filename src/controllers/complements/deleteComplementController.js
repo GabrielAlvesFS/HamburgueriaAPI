@@ -7,7 +7,7 @@ export default async (req, res) => {
     // Validation with ZOD
     deleteComplementValidator.parse(req.params.id)
 
-    // Veryfing if complement exists
+    // Verifying if complement exists
     const complement = await getComplement(req.params.id)
     if (!complement) throw new Error("Complement not found!")
 

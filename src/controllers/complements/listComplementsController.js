@@ -7,7 +7,7 @@ export default async (req, res) => {
     // Validation with ZOD
     listComplementsValidator.parse(req.body)
 
-    // Veryfing if complement exists
+    // Verifying if complement exists
     const data = await listComplements(req.body)
     if (!data[0]) throw new Error("Complement not found!")
     res.status(200).send(data)
