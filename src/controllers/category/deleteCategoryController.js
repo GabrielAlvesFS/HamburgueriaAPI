@@ -9,7 +9,7 @@ export default async (req, res) => {
 
     // Verifying if category exists
     const category = await getCategory(req.params.id)
-    if (!category) throw new Error("Category not found")
+    if (!category) throw new Error("Category not found");
 
     //If ID exists, the manager will be deleted
     const data = await deleteCategory({
