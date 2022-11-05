@@ -9,3 +9,5 @@ export const isValidCPF = (cpf) => {
     10
   return rest(10) === cpf[9] && rest(11) === cpf[10]
 }
+
+export const isValidObjectId = (value) => /^[a-f\d]{24}$/.test(value)
