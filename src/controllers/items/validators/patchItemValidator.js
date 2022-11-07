@@ -1,7 +1,8 @@
 import zod from 'zod';
+import { isValidObjectId } from '../../../utils/validations.js';
 
 export default zod.object({
-  id: zod.string().refine((value) => /^[a-f\d]{24}$/.test(value), {message: "Invalid ID!"}),
+  id: zod.string().refine( isValidObjectId, {message: "Invalid ID!"}),
   type: zod.string().min(3).max(14).optional(),
   active: zod.boolean().optional(),
   name: zod.string().min(3).max(40).optional(),
