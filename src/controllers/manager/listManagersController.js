@@ -5,10 +5,10 @@ import { logger } from "../../config/logger.js";
 export default async (req, res) => {
   try {
     // Validation with ZOD
-    listManagersValidator.parse(req.body)
+    listManagersValidator.parse(req.query)
 
     // Verifying if manager exists
-    const manager = await listManagers(req.body, "-password")
+    const manager = await listManagers(req.query, "-password")
     if (!manager.length) throw new Error("Manager not found!")
 
     res.status(200).send(manager)

@@ -5,10 +5,10 @@ import { logger } from "../../config/logger.js";
 export default async (req, res) => {
   try {
     // Validation with ZOD
-    listComplementsValidator.parse(req.body)
+    listComplementsValidator.parse(req.query)
 
     // Verifying if complement exists
-    const data = await listComplements(req.body)
+    const data = await listComplements(req.query)
     if (!data[0]) throw new Error("Complement not found!")
     res.status(200).send(data)
 

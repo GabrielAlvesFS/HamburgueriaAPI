@@ -1,20 +1,19 @@
 import { listItems } from "../../services/items.js";
 import listItemsValidator from "./validators/listItemsValidator.js";
-import { logger } from "../../config/logger.js";
 
-export default async (req, res) => {
+// Adicionar todos os req.query nos lists (GET)
+export default async (req, res, next) => {
   try {
     // Validation with ZOD -> only filter by type, name or value
-    listItemsValidator.parse(req.body)
+    listItemsValidator.parse(req.query)
 
-    const data = await listItems(req.body);
-    if (!data[0]) throw new Error("Item not found!")
+    const data = await listItems(req.query);
+    if (!data[0]) throw new Error("notFound")
     res.send(data)
 
   } catch (error) {
-    if (error.message === "Item not found!") return res.status(404).send({error: error.message})
-    if (error.name === "ZodError") return res.status(400).send(error.issues)
-    logger.error(error)
-    res.status(500).send({error: "Internal error"})
+
+    next(error)
+
   }
 }

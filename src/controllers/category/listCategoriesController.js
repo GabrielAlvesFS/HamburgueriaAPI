@@ -5,10 +5,10 @@ import { logger } from "../../config/logger.js";
 export default async (req, res) => {
   try {
     // Validation with ZOD
-    listCategoriesValidator.parse(req.body)
+    listCategoriesValidator.parse(req.query)
 
     // Verifying if category exists
-    const data = await listCategories(req.body);
+    const data = await listCategories(req.query);
     if (!data[0]) throw new Error("Category not found!")
 
     res.status(200).send(data)
