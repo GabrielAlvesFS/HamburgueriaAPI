@@ -1,3 +1,4 @@
 import zod from 'zod';
+import { isValidObjectId } from '../../../utils/validations.js';
 
-export default zod.string().refine((value) => /^[a-f\d]{24}$/.test(value), {message: "Invalid ID!"});
+export default zod.string().refine( isValidObjectId, {message: "Invalid ID!"} );
