@@ -9,5 +9,5 @@ export default zod.object({
   description: zod.string().min(3).max(100).optional(),
   value: zod.string().optional(),
   imgUrl: zod.string().max(2048).optional(),
-  complementsIDs: zod.array().optional()
+  complementsIds: zod.array().optional()
 }).strict()
