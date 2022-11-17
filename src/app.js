@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors"
 import routes from "./routes/main.js";
-import errorHandler from "./utils/errorHandler.js";
+import { errorHandler } from "./utils/errorHandler.js";
 
 const corsConfig = {
     origin: '*',
