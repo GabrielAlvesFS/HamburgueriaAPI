@@ -1,11 +1,19 @@
-import zod from 'zod';
-import { isValidObjectId } from '../../../utils/validations.js';
+import patchComplementValidatorSchema from "./schemas/patchComplementValidatorSchema.js";
+import { getComplement } from "../../../services/complement.js";
+import { NotFoundError } from "../../../utils/errorHandler.js";
 
-export default zod.object({
-  id: zod.string().refine( isValidObjectId, {message: "Invalid ID!"} ),
-  title: zod.string().min(3).max(100).optional(),
-  items: zod.string().array().optional(),
-  required: zod.boolean().optional(),
-  min: zod.number().optional(),
-  max: zod.number().optional()
-}).strict()
+export const validate = async (params, body) => {
+  try {
+    // Validation with ZOD
+    patchComplementValidatorSchema.parse({...params, ...body})
+  
+    // Verifying if complement exists
+    const complement = await getComplement(params.id)
+    if (!complement) throw new NotFoundError("The ID of this complement doesn't exist!", "id")
+
+  } catch (error) {
+    // Throwing error to controller
+    throw error
+
+  }
+}
