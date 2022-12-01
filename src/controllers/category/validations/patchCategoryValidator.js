@@ -1,8 +1,19 @@
-import zod from 'zod';
-import { isValidObjectId } from '../../../utils/validations.js';
+import patchCategoryValidatorSchema from "./schemas/patchCategoryValidatorSchema.js";
+import { getCategory } from "../../../services/category.js";
+import { NotFoundError } from "../../../utils/errorHandler.js";
 
-export default zod.object({
-  id: zod.string().refine( isValidObjectId, {message: "Invalid ID!"} ),
-  name: zod.string().min(3).max(100).optional(),
-  imgUrl: zod.string().max(2048).optional()
-}).strict()
+export const validate = async (params, body) => {
+  try {
+    //Validation with ZOD
+    patchCategoryValidatorSchema.parse({...params, ...body})
+
+    // Verifying if category exists
+    const category = await getCategory(params.id)
+    if (!category) throw new NotFoundError("The ID of this category doesn't exist!", "id")
+
+  } catch (error) {
+    // Throwing error to controller
+    throw error
+
+  }
+}
