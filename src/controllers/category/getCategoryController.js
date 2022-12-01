@@ -1,22 +1,22 @@
 import getCategoryValidator from "./validations/getCategoryValidator.js";
 import { getCategory } from "../../services/category.js";
-import { logger } from "../../config/logger.js";
+import { NotFoundError } from "../../utils/errorHandler.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     // Validation with ZOD
     getCategoryValidator.parse(req.params.id)
 
     // Verifying if category exists
     const data = await getCategory(req.params.id)
-    if (!data) throw new Error("Category not found!")
+    if (!data) throw new NotFoundError("The ID of this category doesn't exist!", "id")
     
+    //If ID exists, it will send the data
     res.status(200).send(data)
     
   } catch (error) {
-    if (error.message === "Category not found!") return res.status(404).send({error: error.message})
-    else if (error.name === "ZodError") return res.status(400).send({error: error.issues})
-    logger.error(error)
-    res.status(500).send({error: "Internal error"})
+    // Throwing to error handler
+    next(error)
+    
   }
 }
