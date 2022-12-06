@@ -1,9 +1,19 @@
-import zod  from 'zod';
-import { isValidObjectId } from '../../../utils/validations.js';
+import patchUserValidatorSchema from "./schemas/patchUserValidatorSchema.js";
+import { getUser } from "../../../services/users.js";
+import { NotFoundError } from "../../../utils/errorHandler.js";
 
-export default zod.object({
-  id: zod.string().refine( isValidObjectId, {message: "Invalid ID!"} ),
-  name: zod.string().min(3).max(100).optional(),
-  birthDate: zod.preprocess((dateString) => new Date(zod.string(dateString).min(10, { message: "The date string must be at least 10 characters long"}).parse(dateString)), zod.date()).optional(),
-  phone: zod.string().optional(),
-}).strict()
+export const validate = async (params, body) => {
+  try {
+    //Zod Validation
+    patchUserValidatorSchema.parse(...params, ...body)
+
+    //Verifying if ID exists
+    const user = await getUser(params.id)
+    if (!user) throw new NotFoundError("This user doesn't exist!", "id")
+
+  } catch (error) {
+    // Throwing error to controller
+    throw error
+    
+  }
+}

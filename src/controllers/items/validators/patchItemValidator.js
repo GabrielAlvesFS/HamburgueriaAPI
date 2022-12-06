@@ -1,13 +1,19 @@
-import zod from 'zod';
-import { isValidObjectId } from '../../../utils/validations.js';
+import patchItemValidatorSchema from "./schemas/patchItemValidatorSchema.js";
+import { getItem } from "../../../services/items.js";
+import { NotFoundError } from "../../../utils/errorHandler.js";
 
-export default zod.object({
-  id: zod.string().refine( isValidObjectId, {message: "Invalid ID!"}),
-  type: zod.string().min(3).max(14).optional(),
-  active: zod.boolean().optional(),
-  name: zod.string().min(3).max(40).optional(),
-  description: zod.string().min(3).max(100).optional(),
-  value: zod.string().optional(),
-  imgUrl: zod.string().max(2048).optional(),
-  complementsIds: zod.array().optional()
-}).strict()
+export const validate = async (params, body) => {
+  try {
+    // Validation with zod
+    patchItemValidatorSchema.parse({...params, ...body})
+
+    // Verifying if Item exists
+    const item = await getItem(params.id)
+    if (!item) throw new NotFoundError("This item doesn't exist!", "id")
+
+  } catch (error) {
+    // Throwing error to controller
+    throw error
+
+  }
+}
