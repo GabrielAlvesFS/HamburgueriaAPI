@@ -1,13 +1,17 @@
 import { listUsers } from "../../services/users.js";
-import { logger } from "../../config/logger.js";
+import { NotFoundError } from "../../utils/errorHandler.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
-    //pega todos se não tiver body, caso tenha é filtrado por ele
-    const data = await listUsers(req.query, "-password")
-    res.send(data)
+  
+    const user = await listUsers(req.query, "-password")
+    if (!user[0]) throw new NotFoundError("User not found!", [])
+    
+    res.status(200).send(user)
+
   } catch (error) {
-    logger.error(error)
-    res.send(error)
+    // Throwing to error handler
+    next(error)
+    
   }
 }

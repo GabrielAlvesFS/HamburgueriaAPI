@@ -1,8 +1,8 @@
-import { getUser } from "../../services/users.js";
-import { logger } from "../../config/logger.js";
 import getUserValidator from "./validators/getUserValidator.js"
+import { getUser } from "../../services/users.js";
+import { NotFoundError } from "../../utils/errorHandler.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     //Zod Validation
     getUserValidator.parse(req.params.id)
@@ -11,15 +11,14 @@ export default async (req, res) => {
     const data = await getUser(req.params.id, "-password")
 
     //Verifying if ID exists
-    if (!data) throw new Error("ID not found!")
+    if (!data) throw new NotFoundError("The ID of this user doesn't exist!", "id")
 
     //If ID exists, it will send the data
     res.send(data)
 
   } catch (error) {
-    if (error?.message === "ID not found!") return res.status(404).send({error: error.message})
-    else if (error.name === "ZodError") return res.status(400).send(error.issues)
-    logger.error(error)
-    res.status(500).send({ error: "internal error"})
+    // Throwing to error handler
+    next(error)
+
   }
 }

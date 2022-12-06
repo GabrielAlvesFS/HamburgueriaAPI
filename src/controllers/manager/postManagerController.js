@@ -1,9 +1,8 @@
 import postManagerValidator from "./validators/postManagerValidator.js";
 import { postManager } from "../../services/manager.js";
-import { logger } from "../../config/logger.js"
-import { hashValue } from "../../utils/bcrypt.js"
+import { hashValue } from "../../utils/bcrypt.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     // Validation with zod
     postManagerValidator.parse(req.body)
@@ -16,7 +15,8 @@ export default async (req, res) => {
     res.send(data)
     
   } catch (error) {
-    logger.error(error)
-    res.send(error)
+    // Throwing to error handler
+    next(error)
+
   }
 }

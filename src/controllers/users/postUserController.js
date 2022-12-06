@@ -1,9 +1,8 @@
 import postUserValidator from "./validators/postUserValidator.js"
 import { postUser } from "../../services/users.js"
-import { logger } from "../../config/logger.js"
 import { hashValue } from "../../utils/bcrypt.js"
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     // validação com o ZOD
     postUserValidator.parse(req.body)
@@ -15,8 +14,10 @@ export default async (req, res) => {
     // Fazendo o metodo POST
     const data = await postUser(user)
     res.send(data)
+
   } catch (error) {
-    logger.error(error)
-    res.send(error)
+    // Throwing to error handler
+    next(error)
+
   }
 }

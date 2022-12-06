@@ -1,8 +1,7 @@
-import postItemValidator from "./validators/postItemValidator.js"
-import { postItem } from "../../services/items.js"
-import { logger } from "../../config/logger.js"
+import postItemValidator from "./validators/postItemValidator.js";
+import { postItem } from "../../services/items.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     // Validation with ZOD
     postItemValidator.parse(req.body)
@@ -10,8 +9,10 @@ export default async (req, res) => {
     // POST method
     const data = await postItem(req.body)
     res.status(200).send(data)
+
   } catch (error) {
-    logger.error(error)
-    res.send(error)
+    // Throwing to error handler
+    next(error)
+
   }
 }
