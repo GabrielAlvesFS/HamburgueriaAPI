@@ -1,15 +1,10 @@
-import deleteUserValidator from "../users/validators/deleteUserValidator.js";
-import { getManager, deleteManager } from "../../services/manager.js";
-import { logger } from "../../config/logger.js";
+import { validate } from "./validators/deleteManagerValidator.js";
+import { deleteManager } from "../../services/manager.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
-    // Validation with ZOD
-    deleteUserValidator.parse(req.params.id)
-
-    // Verifying if Manager exists
-    const manager = await getManager(req.params.id)
-    if (!manager) throw new Error("Manager not found!")
+    //Validation
+    await validate(req.params)
 
     //If ID exists, the manager will be deleted
     const data = await deleteManager({
@@ -18,9 +13,8 @@ export default async (req, res) => {
     res.status(200).send(data)
 
   } catch (error) {
-    if (error.message === "Manager not found!") return res.status(404).send({error: error.message})
-    else if (error.name === "ZodError") return res.status(400).send({error: error.issues})
-    logger.info(error)
-    res.status(500).send({ error: "Internal error"})
+    // Throwing to error handler
+    next(error)
+    
   }
 }

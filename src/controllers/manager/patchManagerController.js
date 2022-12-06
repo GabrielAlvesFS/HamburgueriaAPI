@@ -1,15 +1,10 @@
-import patchManagerValidator from "./validators/patchManagerValidator.js";
-import { getManager, updateManager } from "../../services/manager.js";
-import { logger } from "../../config/logger.js";
+import { validate } from "./validators/patchManagerValidator.js";
+import { updateManager } from "../../services/manager.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     // Validation with ZOD
-    patchManagerValidator.parse({...req.params, ...req.body})
-
-    // Verifying if Manager exists
-    const manager = await getManager(req.params.id)
-    if (!manager) throw new Error("Manager not found!")
+    await validate(req.params, req.body)
 
     //Updating Manager
     if (req.body.id) delete req.body.id
@@ -18,9 +13,8 @@ export default async (req, res) => {
     res.status(200).send(data)
 
   } catch (error) {
-    if (error?.message === "Manager not found!") return res.status(404).send({error: error.message})
-    else if (error.name === "ZodError") return res.status(400).send({error: error.issues})
-    logger.info(error)
-    res.status(500).send({ error: "Internal error"})
+    // Throwing to error handler
+    next(error)
+
   }
 }
