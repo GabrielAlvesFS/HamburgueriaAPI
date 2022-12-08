@@ -30,7 +30,7 @@ const notFoundError = (err, res) => {
 }
 
 const assignmentError = (err, res) => {
-  return res.status(400).send(
+  return res.status(403).send(
     {
       error: [{
         code: err.code,
