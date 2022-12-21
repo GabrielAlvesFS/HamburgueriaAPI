@@ -1,10 +1,10 @@
-import postComplementValidator from "./validations/postComplementValidator.js";
+import { validate } from "./validations/postComplementValidator.js";
 import { postComplement } from "../../services/complement.js";
 
 export default async (req, res, next) => {
   try {
-    // Validation with ZOD
-    postComplementValidator.parse(req.body)
+
+    await validate(req.body)
 
     // Post Method
     const data = await postComplement(req.body)
