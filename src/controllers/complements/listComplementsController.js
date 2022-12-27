@@ -1,5 +1,6 @@
 import listComplementsValidator from "./validations/listComplementsValidator.js";
 import { listComplements } from "../../services/complement.js";
+import { NotFoundError } from "../../utils/errorHandler.js";
 
 export default async (req, res, next) => {
   try {
