@@ -2,5 +2,6 @@ import zod from 'zod';
 
 export default zod.object({
   name: zod.string().min(3).max(100),
-  imgUrl: zod.string().max(2048).optional()
+  imgUrl: zod.string().max(2048).optional(),
+  active: zod.boolean()
 }).strict()
