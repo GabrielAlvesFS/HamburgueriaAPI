@@ -9,6 +9,7 @@ import user from "./userRoutes.js";
 import item from "./itemRoutes.js";
 import complement from "./complementRoutes.js";
 import category from "./categoryRoutes.js";
+import order from "./orderRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -27,7 +28,8 @@ const routes = (app) => {
         user,
         item,
         complement,
-        category
+        category,
+        order
     );
 }
 
