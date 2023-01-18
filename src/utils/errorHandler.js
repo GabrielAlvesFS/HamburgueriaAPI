@@ -18,6 +18,15 @@ export class AssignmentError extends Error {
   }
 }
 
+export class InvalidAttributionError extends Error {
+  constructor(message, path) {
+    super(message)
+    this.name = "invalidAttributionError"
+    this.code = "invalidAttributionError"
+    this.path = path
+  }
+}
+
 const notFoundError = (err, res) => {
   return res.status(404).send(
     {
@@ -40,6 +49,17 @@ const assignmentError = (err, res) => {
   })
 }
 
+const invalidAttributionError = (err, res) => {
+  return res.status(403).send(
+    {
+      error: [{
+        code: err.code,
+        message: err.message,
+        path: [ err.path ]
+      }]
+  })
+}
+
 const zodError = (err, res) => {
   return res.status(400).send({error: err.issues})
 }
@@ -47,12 +67,13 @@ const zodError = (err, res) => {
 const errorFunctions = { 
   notFoundError,
   assignmentError,
+  invalidAttributionError,
   ZodError: zodError
 }
 
 export const errorHandler = async (err, req, res, next) => {
   try {
-    
+    logger.error(err)
     const errorName = err.name || err.message
     return errorFunctions[errorName](err, res)
     
