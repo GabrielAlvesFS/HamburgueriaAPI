@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const orderSchema = new Schema ({
-  // user -> front/ back (tel do user)
+  userData: {type: Object, required: true},
   items: {type: Array, required: true}
   // total
 }, {timestamps: true})
