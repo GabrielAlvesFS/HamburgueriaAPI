@@ -10,8 +10,8 @@ const router = express.Router();
 
 router
     .post("/v1/complement", checkAuth("manager"), postComplement)
-    .get("/v1/complement", checkAuth("manager"), listComplements)
-    .get("/v1/complement/:id", checkAuth("manager"), getComplement)
+    .get("/v1/complement", listComplements)
+    .get("/v1/complement/:id", getComplement)
     .patch("/v1/complement/:id", checkAuth("manager"), patchComplement)
     .delete("/v1/complement/:id", checkAuth("manager"), deleteComplement)
 

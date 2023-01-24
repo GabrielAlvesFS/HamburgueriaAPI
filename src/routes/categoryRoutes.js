@@ -10,8 +10,8 @@ const router = express.Router()
 
 router
     .post("/v1/category", checkAuth("manager"), postCategory)
-    .get("/v1/category", checkAuth("manager"), listCategories)
-    .get("/v1/category/:id", checkAuth("manager"), getCategory)
+    .get("/v1/category", listCategories)
+    .get("/v1/category/:id", getCategory)
     .patch("/v1/category/:id", checkAuth("manager"), patchCategory)
     .delete("/v1/category/:id", checkAuth("manager"), deleteCategory)
 
