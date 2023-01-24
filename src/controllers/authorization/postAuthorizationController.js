@@ -25,9 +25,12 @@ export default async (req, res) => {
 
     if (!checkPassword) throw new Error('Wrong password or email!')
     
+
     const payload = {
-      nome: user[0].name,  
+      id: user[0]._id,
+      name: user[0].name,  
       email: user[0].email,
+      phone: user[0]?.phone,
       roles: req.body.role,
       exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
     }
