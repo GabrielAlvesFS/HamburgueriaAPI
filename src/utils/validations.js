@@ -11,3 +11,5 @@ export const isValidCPF = (cpf) => {
 }
 
 export const isValidObjectId = (value) => /^[a-f\d]{24}$/.test(value)
+
+export const isValidCEP = (value) => /^[0-9]{5}-[0-9]{3}$/.test(value)
