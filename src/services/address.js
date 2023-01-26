@@ -18,3 +18,8 @@ export const listAddresses = async (query) => {
 export const updateAddress = async (id, data) => {
   return await addressModel.updateOne({_id: id}, { $set: {...data}})
 }
+
+// DELETE
+export const deleteAddress = async (id) => {
+  return await addressModel.deleteOne(id)
+}
