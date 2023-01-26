@@ -13,3 +13,8 @@ export const getAddress = async (id) => {
 export const listAddresses = async (query) => {
   return await addressModel.find(query);
 }
+
+// PUT AND PATCH
+export const updateAddress = async (id, data) => {
+  return await addressModel.updateOne({_id: id}, { $set: {...data}})
+}
