@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const addressSchema = new Schema({
   userId: {type: String, required: true},
-  AddressLabel: {type: String, required: true},
+  addressLabel: {type: String, required: true},
   city: {type: String, required: true},
   postcode: {type: String, required: true},
   state: {type: String, required: true},
