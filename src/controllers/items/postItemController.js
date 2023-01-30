@@ -1,10 +1,9 @@
-import postItemValidator from "./validators/postItemValidator.js";
+import { validate } from "./validators/postItemValidator.js";
 import { postItem } from "../../services/items.js";
 
 export default async (req, res, next) => {
   try {
-    // Validation with ZOD
-    postItemValidator.parse(req.body)
+    await validate(req.body)
     
     // POST method
     const data = await postItem(req.body)
