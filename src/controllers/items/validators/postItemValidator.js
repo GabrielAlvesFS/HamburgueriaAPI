@@ -1,12 +1,26 @@
-import zod  from 'zod';
-import { isValidObjectId } from '../../../utils/validations.js';
+import postItemValidatorSchema from "./schemas/postItemValidatorSchema.js";
+import { getCategory } from "../../../services/category.js";
+import { getComplement } from "../../../services/complement.js";
+import { NotFoundError } from "../../../utils/errorHandler.js";
 
-export default zod.object({
-  categoryId: zod.string().refine( isValidObjectId, {message: "Invalid ID!"}),
-  active: zod.boolean(),
-  name: zod.string().min(3).max(40),
-  description: zod.string().min(3).max(150).optional(),
-  value: zod.string(),
-  imgUrl: zod.string().max(2048),
-  complementsIds: zod.array(zod.string().refine( isValidObjectId, {message: "Invalid ID!"})).optional()
-}).strict()
+export const validate = async (body) => {
+  try {
+    postItemValidatorSchema.parse(body)
+
+    const category = await getCategory(body.categoryId)
+    if (!category) throw new NotFoundError("This category doesn't exist!", {categoryId: body.categoryId})
+
+    if (body?.complementsIds) {
+      await Promise.all(
+        body.complementsIds.map( async (id) => {
+          const complement = await getComplement(id);
+          if (!complement) throw new NotFoundError("This complement group doesn't exist!", {complementsIds: [id]})
+        })
+      )
+    }
+
+  } catch (error) {
+    throw error
+
+  }
+}
