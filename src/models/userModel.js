@@ -7,11 +7,11 @@ const userSchema = new Schema({
   password: {type: String, required: true},
   birthDate: {type: Date, required: true},
   cpf: {type: String, unique: true},
-  phone: {type: String},
-  addresId: {type: String},
+  phone: {type: String, required: true},
+  addressIds: [ {type: String} ],
   paymentsId: {type: String},
 }, {timestamps: true})
 
 const user = mongoose.model('User', userSchema)
 
-export default user 
+export default user;
