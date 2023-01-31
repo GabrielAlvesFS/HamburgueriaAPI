@@ -55,18 +55,19 @@ const itemsFromOrderValidation = async (itemsArr) => {
           // console.log("Testando: " + complement.id)
           if ( id == complement.id) {
             count++
+            // console.log(count)
           }
-          // console.log(count)
-          //Caso passe do permitido ja lança o erro, caso o lançamento de erros fosse fora do filter, ele percorreria todo o array e iria somando no count - Tenho quase certeza mas a melhor alternativa seria dentro do filter mesmo
-          if ( complementsData[i].required ) {
-            if (count !== 1) throw new InvalidAttributionError("An item in your order is missing a required complement group or there are duplicate complement groups", {complements: item.complements})
-          } 
-          else {
-            if ( count !== 0 && count !== 1) throw new InvalidAttributionError("You cannot repeat the same group of complements on an item in your order", {complements: item.complements})
-          }
-        })
 
+        })
+        
+        //Caso passe do permitido ja lança o erro, caso o lançamento de erros fosse fora do filter, ele percorreria todo o array e iria somando no count - Tenho quase certeza mas a melhor alternativa seria dentro do filter mesmo
         // se o agrupamento de complementos nao for obrigatorio passa com count 0 e 1, caso seja obrigatorio so passa com o count 1
+        if ( complementsData[i].required ) {
+          if (count !== 1) throw new InvalidAttributionError("An item in your order is missing a required complement group or there are duplicate complement groups", {complements: item.complements})
+        } 
+        else {
+          if ( count !== 0 && count !== 1) throw new InvalidAttributionError("You cannot repeat the same group of complements on an item in your order", {complements: item.complements})
+        }
 
       }
 
