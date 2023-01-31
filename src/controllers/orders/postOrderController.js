@@ -60,6 +60,10 @@ const mountOrder = async (itemsArr) => {
   return itemsFromOrder
 }
 
+const calcAmount = (items) => {
+  return items.reduce((accumulator, currentValue) => accumulator + currentValue.item.value, 0)
+}
+
 export default async (req, res, next) => {
   try {
     await validate(req.body)
@@ -71,10 +75,12 @@ export default async (req, res, next) => {
       email: req.payload.email,
       phone: req.payload?.phone
     }
+    const amount = calcAmount(items)
 
     const order = {
       user,
-      items
+      items,
+      amount
     }
 
     // POST method
