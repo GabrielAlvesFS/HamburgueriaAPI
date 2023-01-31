@@ -6,7 +6,7 @@ const itemSchema = new Schema ({
   active: {type: Boolean, required: true},
   name: {type: String, required: true},
   description: {type: String},
-  value: {type: String, required: true},
+  value: {type: Number, required: true},
   imgUrl: {type: String, required: true},
   complementsIds: {type: Array}
 }, {timestamps: true})
