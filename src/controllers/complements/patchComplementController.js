@@ -1,5 +1,5 @@
 import { validate } from './validations/patchComplementValidator.js';
-import { updateComplement } from "../../services/complement.js";
+import { getComplement, updateComplement } from "../../services/complement.js";
 
 export default async (req, res, next) => {
   try {
@@ -10,7 +10,9 @@ export default async (req, res, next) => {
     if (req.body.id) delete req.body.id
 
     const data = await updateComplement(req.params.id, req.body)
-    res.status(200).send(data)
+    const complementUpdated = await getComplement(req.params.id)
+
+    res.status(200).send(complementUpdated)
 
   } catch (error) {
     // Throwing to error handler
