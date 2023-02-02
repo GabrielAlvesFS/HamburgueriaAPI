@@ -1,5 +1,5 @@
 import { validate } from "./validations/patchCategoryValidator.js";
-import { updateCategory } from "../../services/category.js";
+import { getCategory, updateCategory } from "../../services/category.js";
 
 export default async (req, res, next) => {
   try {
@@ -10,7 +10,9 @@ export default async (req, res, next) => {
     if (req.body.id) delete req.body.id
 
     const data = await updateCategory(req.params.id, req.body)
-    res.status(200).send(data)
+    const categoryUpdated = await getCategory(req.params.id)
+
+    res.status(200).send(categoryUpdated)
 
   } catch (error) { 
     // Throwing to error handler
