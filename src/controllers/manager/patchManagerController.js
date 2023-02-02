@@ -1,5 +1,5 @@
 import { validate } from "./validators/patchManagerValidator.js";
-import { updateManager } from "../../services/manager.js";
+import { getManager, updateManager } from "../../services/manager.js";
 
 export default async (req, res, next) => {
   try {
@@ -10,7 +10,9 @@ export default async (req, res, next) => {
     if (req.body.id) delete req.body.id
 
     const data = await updateManager(req.params.id, req.body)
-    res.status(200).send(data)
+    const managerUpdated = await getManager(req.params.id)
+
+    res.status(200).send(managerUpdated)
 
   } catch (error) {
     // Throwing to error handler
