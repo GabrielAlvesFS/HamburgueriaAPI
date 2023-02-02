@@ -12,7 +12,9 @@ export default async (req, res, next) => {
     if (!address) throw new NotFoundError("The ID of this address doesn't exist!", "id")
 
     const data = await updateAddress(req.params.id, req.body)
-    res.status(200).send(data)
+    const addressUpdated = await getAddress(req.params.id)
+
+    res.status(200).send(addressUpdated)
     
   } catch (error) {
     next(error)
