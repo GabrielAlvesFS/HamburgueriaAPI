@@ -5,7 +5,7 @@ import { NotFoundError } from "../../../utils/errorHandler.js";
 export const validate = async (params, body) => {
   try {
     //Zod Validation
-    patchUserValidatorSchema.parse(...params, ...body)
+    patchUserValidatorSchema.parse({...params, ...body})
 
     //Verifying if ID exists
     const user = await getUser(params.id)
