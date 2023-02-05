@@ -26,7 +26,7 @@ Projeto realizado utilizando o [Node.js](https://nodejs.org/en/) com framework [
 ## :rocket: Hospedagem da API na heroku:
 
 ```
-https://hamburguer-api.herokuapp.com/
+https://hamburgueria-api.up.railway.app/
 ```
  
 ## :rocket: Instalação da Aplicação
