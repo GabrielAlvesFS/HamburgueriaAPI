@@ -6,106 +6,97 @@ import { NotFoundError, InvalidAttributionError } from "../../../utils/errorHand
 
 const itemsFromOrderValidation = async (itemsArr) => {
   
-  const itemValidate = async (item) => {
-    const itemData = await getItem(item.id)
-    if (!itemData) throw new NotFoundError("This item doesn't exist!", { items: {id: item.id}})
-
-    if (itemData.active !== true) throw new InvalidAttributionError("You cannot add an item that is disabled", { items: {id: item.id}})
+  const itemValidate = async (itemFromBody) => {
+    const itemFromDB = await getItem(itemFromBody.id)
+    if (!itemFromDB) throw new NotFoundError(
+      "This item doesn't exist!", { items: {id: itemFromBody.id}}
+    )
+    if (!itemFromDB.active) throw new InvalidAttributionError(
+      "You cannot add an item that is disabled", { items: {id: itemFromBody.id}}
+    ) 
     
-    const categoryData = await getCategory(itemData.categoryId)
-    if (categoryData.name === "Complements") throw new InvalidAttributionError("You cannot add an item which contains the complements category in your order", { items: {id: item.id}})
+    const categoryData = await getCategory(itemFromDB.categoryId)
+    if (categoryData.name === "Complements") throw new InvalidAttributionError(
+      "You cannot add an item which contains the complements category in your order", { items: {id: itemFromBody.id}}
+    )
 
-    // Verificando no banco de dados se os complementos enviados no item existem
-    if (item?.complements) {
+    // Verificando no banco de dados se os grupos de complemento enviados no item existem
+    if (itemFromBody?.complements) {
       await Promise.all(
-        item.complements.map( async (complement) => {
-          const data = await getComplement(complement.id)
-          if (!data) throw new NotFoundError("This complement doesn't exist!", { complements: {id: complement.id}})
+        itemFromBody.complements.map( async (currComplement) => {
+          const data = await getComplement(currComplement.id)
+          if (!data) throw new NotFoundError(
+            "This complement group doesn't exist!", { complements: {id: currComplement.id}}
+          )
         })
       )
-
     }
 
-    if (itemData.complementsIds[0]) {
+    if (itemFromDB.complementsIds[0]) {
       //Pegando no banco de dados os dados dos grupos de complemento do real item
-      const complementsData = await Promise.all(
-        itemData.complementsIds.map( async (complement) => {
-          const data = await getComplement(complement);
-          return data
+      const complementsFromDB = await Promise.all(
+        itemFromDB.complementsIds.map( async (currComplement) => {
+          return await getComplement(currComplement);
         })
       )
       
       // Verificando se os ids dos agrupamentos de complementos que estão na req são aceitaveis de acordo com os complementos do REAL ITEM
-      const containAllPossibleComplements = item.complements.every( (complement) => {
-        return itemData.complementsIds.includes(complement.id)
-      }) 
+      const containAllPossibleComplements = itemFromBody.complements.every( 
+        currComplement => itemFromDB.complementsIds.includes(currComplement.id)
+      ) 
 
-      //"You cannot add an add-on group that does not belong to the item in your order" 
-      if (!containAllPossibleComplements) throw new InvalidAttributionError("One or more complement groups you are trying to add does not belong to the item in your order", {complements: item.complements})
+      if (!containAllPossibleComplements) throw new InvalidAttributionError(
+        "One or more complement groups you are trying to add does not belong to the item in your order", {complements: itemFromBody.complements}
+      )
     
-      // Verificando se tem grupos de complementos repetindo
-      for (let i = 0; i < complementsData.length; i++) {
+      complementsFromDB.forEach( (complementFromDB) => {
+        // ----
+        // Verificando cada grupo de complementos do atual item para ver se tem grupo de complemento faltando ou a mais
+        const repeatedOrMissingComplements = itemFromBody.complements.filter( (complementFromBody) => complementFromBody.id == complementFromDB._id )
 
-        const id = complementsData[i]._id
-        let count = 0
-
-        // console.log("verificando o ID: " + id)
-
-        item.complements.filter( (complement) => {
-          // console.log("Testando: " + complement.id)
-          if ( id == complement.id) {
-            count++
-            // console.log(count)
-          }
-
-        })
-        
-        //Caso passe do permitido ja lança o erro, caso o lançamento de erros fosse fora do filter, ele percorreria todo o array e iria somando no count - Tenho quase certeza mas a melhor alternativa seria dentro do filter mesmo
-        // se o agrupamento de complementos nao for obrigatorio passa com count 0 e 1, caso seja obrigatorio so passa com o count 1
-        if ( complementsData[i].required ) {
-          if (count !== 1) throw new InvalidAttributionError("An item in your order is missing a required complement group or there are duplicate complement groups", {complements: item.complements})
+        if ( complementFromDB.required ) {
+          if (repeatedOrMissingComplements.length !== 1) throw new InvalidAttributionError(
+            "An item in your order is missing a required complement group or there are duplicate complement groups", {complements: itemFromBody.complements}
+          )
         } 
         else {
-          if ( count !== 0 && count !== 1) throw new InvalidAttributionError("You cannot repeat the same group of complements on an item in your order", {complements: item.complements})
+          if ( repeatedOrMissingComplements.length > 1) throw new InvalidAttributionError(
+            "You cannot repeat the same group of complements on an item in your order", {complements: itemFromBody.complements}
+          )
         }
+        // ----
 
-      }
-
-      // O Array de complementos que vem na req tem de ser menor ou mesmo tamanho do arr de complementos do ITEM
-      // Preciso verificar se o grupo/grupos de complemento que veio na req se bate com o do real item 
-      // -----------------------------
-  
-      for (let i = 0; i < complementsData.length; i++) {
-        const id = complementsData[i]._id
-
-        // Verificar se os itens escolhidos batem com os itens do real grupo de complementos
-        item.complements.filter( (complement) => { 
-          if ( id == complement.id) {
-            // console.log(complement)
-            const containAllPossibleItems = complement.items.every( (itemId) => {
-              return complementsData[i].items.includes(itemId)
+        itemFromBody.complements.forEach( (currComplement) => {
+          if (currComplement.id == complementFromDB._id) {
+            // Verificando cada item do grupo de complemento para ver se os itens escolhidos batem com o do DB
+            const containAllPossibleItems = currComplement.items.every( (itemId) => {
+              return complementFromDB.items.includes(itemId)
             }) 
 
-            // console.log("Verificando item do grupo de complemento: " + id)
-            // console.log(containAllPossibleItems)
-            
-            if (!containAllPossibleItems) throw new InvalidAttributionError("One or more items chosen from the complements group does not belong to it", {complement: complement})
+            if (!containAllPossibleItems) throw new InvalidAttributionError(
+              "One or more items chosen from the complements group does not belong to it", {complement: currComplement}
+            )
 
             //Verificar se está dentre o min e o max
-            const minItems = complementsData[i].min
-            const maxItems = complementsData[i].max
+            const minItems = complementFromDB.min
+            const maxItems = complementFromDB.max
 
-            if (complement.items.length !== minItems && complement.items.length !== maxItems) throw new InvalidAttributionError("The number of items chosen in the complements group is not between the minimum and maximum", {complement: complement})
+            if (currComplement.items.length !== minItems && currComplement.items.length !== maxItems) throw new InvalidAttributionError(
+              "The number of items chosen in the complements group is not between the minimum and maximum", {complement: currComplement}
+            )
 
             // Verificando se há duplicatas
-            const hasDuplicates = complement.items.length !== new Set(complement.items).size
-            if (hasDuplicates) throw new InvalidAttributionError("There are duplicate items in the selected items in the complements group", {complement: complement})
+            const hasDuplicates = currComplement.items.length !== new Set(currComplement.items).size
+            if (hasDuplicates) throw new InvalidAttributionError(
+              "There are duplicate items in the selected items in the complements group", {complement: currComplement}
+            )
 
           }
         })
-      }
-    } 
 
+      })
+
+    } 
 
   }
 
@@ -113,9 +104,8 @@ const itemsFromOrderValidation = async (itemsArr) => {
     const itemsFromOrder = await Promise.all(
       itemsArr.map( async (currItem) => {
         await itemValidate(currItem)
-        
-
       })
+      
     )
     
   } catch (error) {
