@@ -15,11 +15,11 @@ export const listAddresses = async (query) => {
 }
 
 // PUT AND PATCH
-export const updateAddress = async (id, data) => {
-  return await addressModel.updateOne({_id: id}, { $set: {...data}})
+export const updateAddress = async (id, userId, data) => {
+  return await addressModel.findOneAndUpdate({_id: id, ...(userId && {userId}) }, { $set: {...data}})
 }
 
 // DELETE
-export const deleteAddress = async (id) => {
-  return await addressModel.deleteOne(id)
+export const deleteAddress = async (id, userId) => {
+  return await addressModel.deleteOne({_id: id, ...(userId && {userId}) })
 }
