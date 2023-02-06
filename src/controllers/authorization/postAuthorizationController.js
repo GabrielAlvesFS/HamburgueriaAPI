@@ -25,15 +25,27 @@ export default async (req, res) => {
 
     if (!checkPassword) throw new Error('Wrong password or email!')
     
+    let payload;
 
-    const payload = {
-      id: user[0]._id,
-      name: user[0].name,  
-      email: user[0].email,
-      phone: user[0]?.phone,
-      roles: req.body.role,
-      exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
+    if (req.body.role == 'customer') {
+      payload = {
+        id: user[0]._id,
+        name: user[0].name,  
+        email: user[0].email,
+        phone: user[0]?.phone,
+        roles: req.body.role,
+        exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
+      }
+    } else {
+      payload = {
+        managerId: user[0]._id,
+        name: user[0].name,  
+        email: user[0].email,
+        roles: req.body.role,
+        exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
+      }
     }
+    
 
     const secret = process.env.JWT_SECRET
 
