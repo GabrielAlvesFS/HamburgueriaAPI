@@ -2,7 +2,31 @@ import postOrderValidatorSchema from "./schemas/postOrderValidatorSchema.js";
 import { getItem } from "../../../services/items.js";
 import { getCategory } from "../../../services/category.js";
 import { getComplement } from "../../../services/complement.js";
+import { getAddress } from "../../../services/address.js";
 import { NotFoundError, InvalidAttributionError } from "../../../utils/errorHandler.js";
+
+
+export const validate = async (body, payload) => {
+  try {
+    postOrderValidatorSchema.parse(body)
+
+    await itemsFromOrderValidation(body.items)
+
+    const address = await addressValidation(body.addressId, payload)
+    // const pay = await paymentValidação
+
+    return {
+      address
+      // payment: pay
+    }
+
+  } catch (error) {
+    // Throwing error to controller
+   throw error
+
+  }
+
+}
 
 const itemsFromOrderValidation = async (itemsArr) => {
   
@@ -112,17 +136,22 @@ const itemsFromOrderValidation = async (itemsArr) => {
     throw error
 
   }
+
 }
 
-export const validate = async (body) => {
+const addressValidation = async (addressId, payload) => { 
   try {
-    postOrderValidatorSchema.parse(body)
+    const address = await getAddress(addressId)
+    if (!address) throw new NotFoundError("This address doesn't exist!", {addressId: addressId})
 
-    await itemsFromOrderValidation(body.items)
+    if (address.userId !== payload.id) throw new InvalidAttributionError(
+      "You cannot use this address because it does not belong to you", {addressId: addressId}
+    )
+
+    return address
 
   } catch (error) {
-    // Throwing error to controller
-   throw error
+    throw error
 
   }
-}
+};
