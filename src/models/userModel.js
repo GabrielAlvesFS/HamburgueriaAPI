@@ -9,7 +9,8 @@ const userSchema = new Schema({
   cpf: {type: String, unique: true},
   phone: {type: String, required: true},
   addressIds: [ {type: String} ],
-  paymentsId: {type: String},
+  defaultAddress: {type: String},
+  paymentsId: {type: String}
 }, {timestamps: true})
 
 const user = mongoose.model('User', userSchema)
