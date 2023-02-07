@@ -13,8 +13,17 @@ export default async (req, res, next) => {
 
     const user = await getUser(req.body.userId, "-password")
 
-    const address = {
-      addressIds: [...user.addressIds, data._id]
+    let address;
+
+    if (user.addressIds.length === 0) {
+      address = {
+        addressIds: [...user.addressIds, data._id],
+        defaultAddress: data._id
+      }
+    } else {
+      address = {
+        addressIds: [...user.addressIds, data._id]
+      }
     }
 
     const addAddress = await updateUser(req.body.userId, address)
