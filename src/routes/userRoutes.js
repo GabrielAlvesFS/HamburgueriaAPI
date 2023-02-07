@@ -12,7 +12,7 @@ router
     .post("/v1/user", postUser)
     .get("/v1/users", listUsers)
     .get("/v1/user/:id", getUser)
-    .patch("/v1/user/:id", checkAuth("manager"), patchUser)
-    .delete("/v1/user/:id", checkAuth("manager"), deleteUser)
+    .patch("/v1/user/:id", checkAuth("customer", "manager"), patchUser)
+    .delete("/v1/user/:id", checkAuth("customer", "manager"), deleteUser)
     
 export default router;
