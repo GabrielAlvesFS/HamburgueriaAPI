@@ -1,5 +1,5 @@
 import { validate } from "./validators/patchUserValidator.js"
-import { getUser, updateUser } from "../../services/users.js";
+import { updateUser } from "../../services/users.js";
 
 export default async (req, res, next) => {
   try {
@@ -8,9 +8,11 @@ export default async (req, res, next) => {
     
     //Updating User
     if (req.body.id) delete req.body.id
+    if (req.payload?.id) {
+      if (req.params.id !== req.payload.id) return res.status(401).send({message: "unathorized"})
+    }
 
-    const data = await updateUser(req.params.id, req.body)
-    const userUpdated = await getUser(req.params.id, "-password")
+    const userUpdated = await updateUser(req.params.id, req.body, "-password")
 
     res.status(200).send(userUpdated)
     
