@@ -33,6 +33,7 @@ export default async (req, res) => {
         name: user[0].name,  
         email: user[0].email,
         phone: user[0]?.phone,
+        defaultAddress: user[0]?.defaultAddress,
         roles: req.body.role,
         exp: Math.floor(Date.now() / 1000) + (7*24*60*60)
       }
