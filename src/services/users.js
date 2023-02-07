@@ -15,8 +15,8 @@ export const getUser = async (id, filter) => {
 }
 
 // PUT e PATCH
-export const updateUser = async (id, data) => {
-  return await userModel.updateOne({_id: id}, { $set: {...data} });
+export const updateUser = async (id, data, filter) => {
+  return await userModel.findOneAndUpdate({_id: id}, { $set: {...data} }).select(filter);
 }
 
 // DELETE
