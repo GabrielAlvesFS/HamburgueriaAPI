@@ -66,7 +66,7 @@ const calcAmount = (items) => {
 
 export default async (req, res, next) => {
   try {
-    await validate(req.body)
+    const validationData = await validate(req.body, req.payload)
 
     const items = await mountOrder(req.body.items)
     const user = {
@@ -77,10 +77,13 @@ export default async (req, res, next) => {
     }
     const amount = calcAmount(items)
 
+    const address = validationData.address
+
     const order = {
       user,
       items,
-      amount
+      amount,
+      address
     }
 
     // POST method
