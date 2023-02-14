@@ -18,3 +18,8 @@ export const listPayments = async (query) => {
 export const updatePayment = async (id, data) => {
   return await paymentModel.findOneAndUpdate({_id: id}, { $set: {...data}}, {returnDocument: 'after'})
 }
+
+// DELETE
+export const deletePayment = async (id) => {
+  return await paymentModel.deleteOne(id)
+}
