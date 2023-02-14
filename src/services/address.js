@@ -16,7 +16,7 @@ export const listAddresses = async (query) => {
 
 // PUT AND PATCH
 export const updateAddress = async (id, userId, data) => {
-  return await addressModel.findOneAndUpdate({_id: id, ...(userId && {userId}) }, { $set: {...data}})
+  return await addressModel.findOneAndUpdate({_id: id, ...(userId && {userId}) }, { $set: {...data}}, {returnDocument: 'after'})
 }
 
 // DELETE
