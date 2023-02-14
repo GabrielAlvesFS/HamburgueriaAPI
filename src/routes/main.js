@@ -11,6 +11,7 @@ import complement from "./complementRoutes.js";
 import category from "./categoryRoutes.js";
 import order from "./orderRoutes.js";
 import address from "./addressRoutes.js";
+import payment from "./paymentRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -31,7 +32,8 @@ const routes = (app) => {
         complement,
         category,
         order,
-        address
+        address,
+        payment
     );
 }
 
