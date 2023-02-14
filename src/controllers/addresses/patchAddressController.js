@@ -1,5 +1,4 @@
 import { updateAddress } from "../../services/address.js";
-import { getAddress } from "../../services/address.js";
 import patchAddressValidator from "./validations/patchAddressValidator.js";
 import { NotFoundError } from "../../utils/errorHandler.js";
 
