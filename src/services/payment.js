@@ -13,3 +13,8 @@ export const getPayment = async (id) => {
 export const listPayments = async (query) => {
   return await paymentModel.find(query);
 }
+
+// PUT AND PATCH
+export const updatePayment = async (id, data) => {
+  return await paymentModel.findOneAndUpdate({_id: id}, { $set: {...data}}, {returnDocument: 'after'})
+}
