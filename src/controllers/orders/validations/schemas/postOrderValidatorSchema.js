@@ -13,5 +13,6 @@ export default zod.object({
       ).optional()
     })
   ),
-  addressId: zod.string().refine( isValidObjectId, {message: "Invalid ID!"})
+  addressId: zod.string().refine( isValidObjectId, {message: "Invalid ID!"}),
+  paymentId: zod.string().refine( isValidObjectId, {message: "Invalid ID!"})
 }).strict()
