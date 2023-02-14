@@ -3,6 +3,7 @@ import { getItem } from "../../../services/items.js";
 import { getCategory } from "../../../services/category.js";
 import { getComplement } from "../../../services/complement.js";
 import { getAddress } from "../../../services/address.js";
+import { getPayment } from "../../../services/payment.js";
 import { NotFoundError, InvalidAttributionError } from "../../../utils/errorHandler.js";
 
 
@@ -13,11 +14,11 @@ export const validate = async (body, payload) => {
     await itemsFromOrderValidation(body.items)
 
     const address = await addressValidation(body.addressId, payload)
-    // const pay = await paymentValidação
+    const payment = await paymentValidation(body.paymentId)
 
     return {
-      address
-      // payment: pay
+      address,
+      payment
     }
 
   } catch (error) {
@@ -155,3 +156,18 @@ const addressValidation = async (addressId, payload) => {
 
   }
 };
+
+const paymentValidation = async (paymentId) => {
+  try {
+    const payment = await getPayment(paymentId)
+    if (!payment) throw new NotFoundError("This payment method doesn't exist!", {paymentId: paymentId})
+
+    if (payment.active === "false") throw new InvalidAttributionError("You cannot select an inactive payment method", {paymentId: paymentId})
+
+    return payment
+
+  } catch (error) {
+    throw error
+
+  }
+}
