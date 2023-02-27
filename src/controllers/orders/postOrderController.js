@@ -69,32 +69,45 @@ export default async (req, res, next) => {
     const validationData = await validate(req.body, req.payload)
 
     const items = await mountOrder(req.body.items)
-    const user = {
+    const userData = {
       id: req.payload.id,
       name: req.payload.name,
       email: req.payload.email,
       phone: req.payload?.phone
     }
-    const amount = calcAmount(items)
 
+    const amount = calcAmount(items)
     const address = validationData.address
     const payment = validationData.payment
 
+    const status = {
+      name: "Em Aberto",
+      userId: req.payload.id,
+      timestamp: new Date(),
+      history: [
+        {
+          name: "Em Aberto",
+          userId: req.payload.id,
+          timestamp: new Date(),
+        }
+      ]
+    }
+
     const order = {
-      user,
+      userData,
       items,
       amount,
       address,
-      payment
+      payment,
+      status 
     }
 
     // POST method
-    // const data = await postOrder(order)
-    res.status(200).send(order)
-
+    const data = await postOrder(order)
+    res.status(200).send(data)
 
   } catch (error) {
-      next(error)
-    // res.status(400).send(error)
+    next(error)
+    
   }
 }   
