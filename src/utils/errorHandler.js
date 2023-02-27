@@ -27,6 +27,15 @@ export class InvalidAttributionError extends Error {
   }
 }
 
+export class UnauthorizedError extends Error {
+  constructor(message, path) {
+    super(message)
+    this.name = "unauthorizedError"
+    this.code = "unauthorizedError"
+    this.path = path
+  }
+}
+
 const notFoundError = (err, res) => {
   return res.status(404).send(
     {
@@ -60,6 +69,17 @@ const invalidAttributionError = (err, res) => {
   })
 }
 
+const unauthorizedError = (err, res) => {
+  return res.status(401).send(
+    {
+      error: [{
+        code: err.code,
+        message: err.message,
+        path: [ err.path ]
+      }]
+  })
+}
+
 const zodError = (err, res) => {
   return res.status(400).send({error: err.issues})
 }
@@ -68,6 +88,7 @@ const errorFunctions = {
   notFoundError,
   assignmentError,
   invalidAttributionError,
+  unauthorizedError,
   ZodError: zodError
 }
 
