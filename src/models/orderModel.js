@@ -7,6 +7,7 @@ const orderSchema = new Schema ({
   amount: {type: Number, required: true},
   address: {type: Object, required: true},
   payment: {type: Object, required: true},
+  status: {type: Object, required: true}
 }, {timestamps: true})
 
 const order = mongoose.model('Order', orderSchema)
