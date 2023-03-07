@@ -1,8 +1,3 @@
-import pedidos from "./pedidosRoutes.js";
-import entregadores from "./entregadoresRoutes.js";
-import itens from "./itemRoutes.js";
-import clientes from "./clientesRoutes.js";
-import itemPedido from "./itemPedidoRoutes.js";
 import auth from "./authRoutes.js";
 import manager from "./managerRoutes.js"
 import user from "./userRoutes.js";
@@ -19,12 +14,6 @@ const routes = (app) => {
     })
 
     app.use(
-        pedidos, 
-        entregadores,
-        pedidos,
-        itens,
-        clientes,
-        itemPedido,
         auth,
         manager,
         user,
