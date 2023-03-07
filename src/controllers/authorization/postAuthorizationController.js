@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
+import postAuthorizationValidator from "./validators/postAuthorizationValidator.js";
 import { listUsers } from "../../services/users.js";
 import { listManagers } from "../../services/manager.js";
 import { compareHash } from "../../utils/bcrypt.js";
-import postAuthorizationValidator from "./validators/postAuthorizationValidator.js";
-import { logger } from "../../config/logger.js";
+import { NotFoundError, InvalidAttributionError } from "../../utils/errorHandler.js";
 
-export default async (req, res) => {
+export default async (req, res, next) => {
   try {
     let user;
 
@@ -19,11 +19,11 @@ export default async (req, res) => {
       user = await listManagers({email: req.body.email})
     }
 
-    if (!user.length) throw new Error('User not found!')
+    if (!user.length) throw new NotFoundError('User not found!', {})
     
     const checkPassword = await compareHash(req.body.password, user[0].password)
 
-    if (!checkPassword) throw new Error('Wrong password or email!')
+    if (!checkPassword) throw new InvalidAttributionError('Wrong password or email!', {})
     
     let payload;
 
@@ -46,7 +46,6 @@ export default async (req, res) => {
       }
     }
     
-
     const secret = process.env.JWT_SECRET
 
     const token = jwt.sign(payload, secret)
@@ -59,11 +58,7 @@ export default async (req, res) => {
     })
     
   } catch (error) {
-    if (error.message === 'User not found!') return res.status(404).send({error: error.message})
-    else if (error.message === 'Wrong password or email!') return res.status(403).send({error: error.message})
-    else if (error.name === "ZodError") return res.status(400).send(error.issues)
+    next(error)
 
-    logger.error(error)
-    res.status(500).send({ error: "internal error"})
   }
 }
