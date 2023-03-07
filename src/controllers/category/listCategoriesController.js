@@ -4,6 +4,9 @@ import { NotFoundError } from "../../utils/errorHandler.js";
 
 export default async (req, res, next) => {
   try {
+    if (req.query.active === "true") req.query.active = true
+    if (req.query.active === "false") req.query.active = false
+    
     // Validation with ZOD
     listCategoriesValidator.parse(req.query)
 
