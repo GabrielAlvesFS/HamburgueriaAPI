@@ -10,8 +10,8 @@ const router = express.Router();
 
 router
     .post("/v1/user", postUser)
-    .get("/v1/users", listUsers)
-    .get("/v1/user/:id", getUser)
+    .get("/v1/user", checkAuth("manager"), listUsers)
+    .get("/v1/user/:id", checkAuth("customer", "manager"), getUser)
     .patch("/v1/user/:id", checkAuth("customer", "manager"), patchUser)
     .delete("/v1/user/:id", checkAuth("customer", "manager"), deleteUser)
     
