@@ -84,12 +84,27 @@ const zodError = (err, res) => {
   return res.status(400).send({error: err.issues})
 }
 
+const mongoServerError = (err, res) => {
+  if (err.code === 11000) {
+    return res.status(409).send(
+      {
+        error: [{
+          code: err.code,
+          message: `A user with this ${Object.keys(err.keyPattern)[0]} already exists`,
+          path: [ err.keyValue ]
+        }]
+    })
+  }
+  throw err
+}
+
 const errorFunctions = { 
   notFoundError,
   assignmentError,
   invalidAttributionError,
   unauthorizedError,
-  ZodError: zodError
+  ZodError: zodError,
+  MongoServerError: mongoServerError
 }
 
 export const errorHandler = async (err, req, res, next) => {
