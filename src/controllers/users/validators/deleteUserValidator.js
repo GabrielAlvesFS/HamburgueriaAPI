@@ -11,6 +11,8 @@ export const validate = async (params) => {
     const user = await getUser(params.id)
     if (!user) throw new NotFoundError("This user doesn't exist!", "id")
 
+    return user
+
   } catch (error) {
     // Throwing error to controller
     throw error
