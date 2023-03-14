@@ -3,7 +3,7 @@ import postAuthorizationValidator from "./validators/postAuthorizationValidator.
 import { listUsers } from "../../services/users.js";
 import { listManagers } from "../../services/manager.js";
 import { compareHash } from "../../utils/bcrypt.js";
-import { NotFoundError, InvalidAttributionError } from "../../utils/errorHandler.js";
+import { NotFoundError, UnauthorizedError } from "../../utils/errorHandler.js";
 
 export default async (req, res, next) => {
   try {
@@ -23,7 +23,7 @@ export default async (req, res, next) => {
     
     const checkPassword = await compareHash(req.body.password, user[0].password)
 
-    if (!checkPassword) throw new InvalidAttributionError('Wrong password or email!', {})
+    if (!checkPassword) throw new UnauthorizedError('Wrong password or email!', {})
     
     let payload;
 
@@ -52,7 +52,7 @@ export default async (req, res, next) => {
 
     // retorna  obj token e payload
     res.status(200).send({
-      status: "Autenticação funciona!",
+      status: "Authenticated",
       token, 
       payload
     })
