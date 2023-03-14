@@ -13,6 +13,7 @@ export default async (req, res, next) => {
 
     // Fazendo o metodo POST
     const data = await postUser(user)
+    delete data._doc.password
     res.send(data)
 
   } catch (error) {
