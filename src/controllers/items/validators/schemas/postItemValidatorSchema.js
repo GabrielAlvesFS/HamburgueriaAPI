@@ -6,7 +6,7 @@ export default zod.object({
   active: zod.boolean(),
   name: zod.string().min(3).max(40),
   description: zod.string().min(3).max(150).optional(),
-  value: zod.string(),
+  value: zod.number(),
   imgUrl: zod.string().max(2048),
   complementsIds: zod.array(zod.string().refine( isValidObjectId, {message: "Invalid ID!"})).optional()
 }).strict()
