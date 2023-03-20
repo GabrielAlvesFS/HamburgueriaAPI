@@ -12,6 +12,7 @@ export default async (req, res, next) => {
     manager.password = await hashValue(manager.password)
 
     const data = await postManager(manager)
+    delete data._doc.password
     res.send(data)
     
   } catch (error) {
