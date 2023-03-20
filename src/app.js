@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors"
 import routes from "./routes/main.js";
+import { errorHandler } from "./utils/errorHandler.js";
 
 const corsConfig = {
     origin: '*',
@@ -18,5 +19,9 @@ app.use(
 )
 
 routes(app)
+
+app.use(
+    errorHandler
+)
 
 export default app;

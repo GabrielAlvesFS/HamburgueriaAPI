@@ -1,0 +1,2324 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Hamburgueria API Docs",
+    "version": "1.0.0",
+    "description": "Uma simples API de Hamburgueria"
+  },
+  "servers": [
+    {
+     "url": "http://localhost:3000/v1"
+    }
+  ],
+  "basePath": "/v1",
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate a user or a manager",
+        "description": "This route is responsible for authentication",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Authentication"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/manager": {
+      "post": {
+        "summary": "Register a manager",
+        "description": "This route is responsible for registering a manager",
+        "tags": ["Manager"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManager"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateManagerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      },
+      "get": {
+        "summary": "List managers",
+        "description": "This route is responsible for list all managers or list according to a query",
+        "tags": ["Manager"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/manager/{id}": {
+      "get": {
+        "summary": "List a manager by ID",
+        "description": "This route is responsible for list a manager by ID",
+        "tags": ["Manager"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The manager ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a manager by ID",
+        "description": "This route is responsible for update a manager by ID",
+        "tags": ["Manager"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The manager ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchManager"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateManagerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a manager by ID",
+        "description": "This route is responsible for delete a manager by ID",
+        "tags": ["Manager"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The manager ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/user": {
+      "post": {
+        "summary": "Register a user",
+        "description": "This route is responsible for registering a user",
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      },
+      "get": {
+        "summary": "List users",
+        "description": "This route is responsible for list all users or list according to a query",
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "List a user by ID",
+        "description": "This route is responsible for list users by ID",
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a user by ID",
+        "description": "This route is responsible for update users by ID",
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The user ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user by ID",
+        "description": "This route is responsible for delete users by ID",
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+    
+    "/address": {
+      "post": {
+        "summary": "Register an address",
+        "description": "This route is responsible for registering an address",
+        "tags": ["Address"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAddress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddressResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "List Addresses",
+        "description": "This route is responsible for list all addresses or list according to a query",
+        "tags": ["Address"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/address/{id}": {
+      "get": {
+        "summary": "List an address by ID",
+        "description": "This route is responsible for list address by ID",
+        "tags": ["Address"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The address ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an address by ID",
+        "description": "This route is responsible for update an address by ID",
+        "tags": ["Address"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The address ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchAddress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAddressResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an address by ID",
+        "description": "This route is responsible for delete an address by ID",
+        "tags": ["Address"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The address ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/item": {
+      "post": {
+        "summary": "Register a new item",
+        "description": "This route is responsible for registering a new item",
+        "tags": ["Item"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateItemResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "List items",
+        "description": "This route is responsible for list all items or list according to a query",
+        "tags": ["Item"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "categoryId",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "complementsIds",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/item/{id}": {
+      "get": {
+        "summary": "List an item by ID",
+        "description": "This route is responsible for list items by ID",
+        "tags": ["Item"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The item ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an item by ID",
+        "description": "This route is responsible for update items by ID",
+        "tags": ["Item"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The item ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateItemResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an item by ID",
+        "description": "This route is responsible for delete items by ID",
+        "tags": ["Item"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The item ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/complement": {
+      "post": {
+        "summary": "Register a new complement group",
+        "description": "This route is responsible for registering a complement group",
+        "tags": ["Complement"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateComplement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateComplementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "summary": "List complement groups",
+        "description": "This route is responsible for list all complement groups or list according to a query",
+        "tags": ["Complement"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "required",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "max",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/complement/{id}": {
+      "get": {
+        "summary": "List a complement group by ID",
+        "description": "This route is responsible for list complement groups by ID",
+        "tags": ["Complement"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The complement group ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a complement group by ID",
+        "description": "This route is responsible for update a complement group by ID",
+        "tags": ["Complement"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The complement group ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchComplement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateComplementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a complement group by ID",
+        "description": "This route is responsible for delete a complement group by ID",
+        "tags": ["Complement"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The complement group ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/category": {
+      "post": {
+        "summary": "Register a new category",
+        "description": "This route is responsible for registering a new category",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "List categories",
+        "description": "This route is responsible for list all categories or list according to a query",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "summary": "List a category by ID",
+        "description": "This route is responsible for list a category by ID",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The category ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a category by ID",
+        "description": "This route is responsible for update a category by ID",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The item ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a category by ID",
+        "description": "This route is responsible for delete a category by ID",
+        "tags": ["Category"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The item ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/payment": {
+      "post": {
+        "summary": "Register a new payment type",
+        "description": "This route is responsible for registering a payment type",
+        "tags": ["Payment"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePayment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePaymentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "List payments type",
+        "description": "This route is responsible for list all payments type or list according to a query",
+        "tags": ["Payment"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/payment/{id}": {
+      "get": {
+        "summary": "List a payment type by ID",
+        "description": "This route is responsible for list a payment type by ID",
+        "tags": ["Payment"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The payment type ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a payment type by ID",
+        "description": "This route is responsible for update a payment type by ID",
+        "tags": ["Payment"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The payment type ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePayment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePaymentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a payment type by ID",
+        "description": "This route is responsible for delete a payment type by ID",
+        "tags": ["Payment"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The payment type ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+
+
+
+    "/order": {
+      "post": {
+        "summary": "Register a new order",
+        "description": "This route is responsible for registering an order",
+        "tags": ["Order"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "summary": "List orders",
+        "description": "This route is responsible for list all orders or list according to a query",
+        "tags": ["Order"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "amount",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "summary": "List orders by ID",
+        "description": "This route is responsible for list all orders by ID",
+        "tags": ["Order"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The order ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update orders by ID",
+        "description": "This route is responsible for update all orders by ID",
+        "tags": ["Order"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The order ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrderResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+
+
+
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+
+    "schemas": {
+      "Authentication": {
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "role"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "the email of the user or manager"
+          },
+          "password": {
+            "type": "string",
+            "description": "the password of the user or manager"
+          },
+          "roles": {
+            "type": "string",
+            "description": "the role to be selected",
+            "enum": ["customer","manager"]
+          }
+        },
+        "example": {
+          "email": "loremipsum@gmail.com",
+          "password": "loremIpsum123",
+          "role": "customer"
+        } 
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object"
+          }
+        }
+
+      },
+      "CreateManager": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "the email of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "the password of the user"
+          }
+        },
+        "example": {
+          "name": "lorem ipsum Manager",
+          "email": "loremipsumManager@gmail.com",
+          "password": "loremIpsum123Manager"
+        } 
+      },
+      "CreateManagerResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchManager": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the new name of the user"
+          }
+        },
+        "example": {
+          "name": "lorem ipsum manager 2"
+        } 
+      },
+      "CreateUser": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password",
+          "birthdate",
+          "cpf",
+          "phone"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "the email of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "the password of the user"
+          },
+          "birthdate": {
+            "type": "date",
+            "description": "the birthdate of the user"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "the cpf of the user"
+          },
+          "phone": {
+            "type": "string",
+            "description": "the phone of the user"
+          }
+        },
+        "example": {
+          "name": "lorem ipsum",
+          "email": "loremipsum@gmail.com",
+          "password": "loremIpsum123",
+          "birthdate": "2001-01-30T00:00:00.000Z",
+          "cpf": "90503227005",
+          "phone": "31990807060"
+        } 
+      },
+      "CreateUserResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the new name of the user"
+          },
+          "birthdate": {
+            "type": "string",
+            "description": "the new birthdate of the user"
+          },
+          "phone": {
+            "type": "string",
+            "description": "the new phone of the user"
+          },
+          "defaultAddress": {
+            "type": "string",
+            "description": "the new default address id of the user"
+          }
+        },
+        "example": {
+          "name": "lorem ipsum2",
+          "birthdate": "2002-01-30T00:00:00.000Z",
+          "phone": "31990807050",
+          "defaultAddress": "63d8003672815f80c09bff4a"
+        } 
+      },
+      "CreateAddress": {
+        "type": "object",
+        "required": [
+          "userId",
+          "addressLabel",
+          "postcode",
+          "city",
+          "state",
+          "streetName",
+          "streetNumber"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "the user id belonging to the address, the authenticated user id will be taken"
+          },
+          "addressLabel": {
+            "type": "string",
+            "description": "the address label"
+          },
+          "postcode": {
+            "type": "string",
+            "description": "the postcode of the address"
+          },
+          "city": {
+            "type": "string",
+            "description": "the city of the address"
+          },
+          "state": {
+            "type": "string",
+            "description": "the state of the address"
+          },
+          "streetName": {
+            "type": "string",
+            "description": "the street name of the address"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "the street number of the address"
+          }
+        },
+        "example": {
+          "addressLabel": "Home",
+          "postcode": "12345-678",
+          "city": "No name",
+          "state": "Undefined",
+          "streetName": "Null",
+          "streetNumber": "0"
+        }
+      },
+      "CreateAddressResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "addressLabel": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchAddress": {
+        "type": "object",
+        "properties": {
+          "addressLabel": {
+            "type": "string",
+            "description": "the address label"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "the street number of the address"
+          }
+        },
+        "example": {
+          "addressLabel": "Home Changed",
+          "streetNumber": "2"
+        } 
+      },
+      "CreateItem": {
+        "type": "object",
+        "required": [
+          "categoryId",
+          "active",
+          "name",
+          "value",
+          "imgUrl"
+        ],
+        "properties": {
+          "categoryId": {
+            "type": "string",
+            "description": "the category id"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "indicates whether the item is active or not"
+          },
+          "name": {
+            "type": "string",
+            "description": "the name of the item"
+          },
+          "description": {
+            "type": "string",
+            "description": "the description of the item"
+          },
+          "value": {
+            "type": "number",
+            "description": "the value of the item"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "item image url"
+          },
+          "complementsIds": {
+            "type": "array",
+            "description": "array with id of complements groups"
+          }
+        },
+        "example": {
+          "categoryId": "exampleCategoryId",
+          "active": true,
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum Desc",
+          "value": 29.84,
+          "imgUrl": "https://loremipsum.com/loremimg.jpg",
+          "complementsIds": ["exampleComplementGroupId1", "exampleComplementGroupId2"]
+        } 
+      },
+      "CreateItemResponse": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "imgUrl": {
+            "type": "string"
+          },
+          "complementsIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchItem": {
+        "type": "object",
+        "properties": {
+          "categoryId": {
+            "type": "string",
+            "description": "the category id"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "indicates whether the item is active or not"
+          },
+          "name": {
+            "type": "string",
+            "description": "the name of the item"
+          },
+          "description": {
+            "type": "string",
+            "description": "the description of the item"
+          },
+          "value": {
+            "type": "number",
+            "description": "the value of the item"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "item image url"
+          },
+          "complementsIds": {
+            "type": "array",
+            "description": "array with id of complements groups"
+          }
+        },
+        "example": {
+          "categoryId": "exampleCategoryIdChanged",
+          "active": true,
+          "name": "Lorem Ipsum Changed",
+          "description": "Lorem Ipsum Desc Changed",
+          "value": 29.84,
+          "imgUrl": "https://loremipsum.com/loremimg2.jpg",
+          "complementsIds": ["exampleComplementGroupId3"]
+        } 
+      },
+      "CreateComplement": {
+        "type": "object",
+        "required": [
+          "title",
+          "items",
+          "required",
+          "min",
+          "max"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "the title of the complement group"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "the id of complement item"
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "description": "indicates whether the complement group is required or not"
+          },
+          "min": {
+            "type": "number",
+            "description": "indicates the minimum of items to be chosen"
+          },
+          "max": {
+            "type": "string",
+            "description": "indicates the maximum of items to be chosen"
+          }
+        },
+        "example": {
+          "title": "Complement Group Title",
+          "items": [ "63a9aae0aadc3c13f2b99457", "63a9ab2daadc3c13f2b99459"],
+          "required": true,
+          "min": 1,
+          "max": 1
+        } 
+      },
+      "CreateComplementResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchComplement": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "the title of the complement group"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "the id of complement item"
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "description": "indicates whether the complement group is required or not"
+          },
+          "min": {
+            "type": "number",
+            "description": "indicates the minimum of items to be chosen"
+          },
+          "max": {
+            "type": "string",
+            "description": "indicates the maximum of items to be chosen"
+          }
+        },
+        "example": {
+          "title": "Complement Group Title Changed",
+          "items": [ "63a9aae0aadc3c13f2b99457" ],
+          "required": false,
+          "min": 1,
+          "max": 1
+        } 
+      },
+      "CreateCategory": {
+        "type": "object",
+        "required": [
+          "name",
+          "imgUrl",
+          "active"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the name of the category"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "category image url"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "indicates whether the category is active or not"
+          }
+        },
+        "example": {
+          "name": "Category Name Example" ,
+          "imgUrl": "https://CategoryImages.com/638531.png",
+          "active": true
+        } 
+      },
+      "CreateCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "imgUrl": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchCategory": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "the name of the category"
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "category image url"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "indicates whether the item is active or not"
+          }
+        },
+        "example": {
+          "name": "Category Name Changed" ,
+          "imgUrl": "https://CategoryImages.com/638531.png",
+          "active": false
+        } 
+      },
+      "CreatePayment": {
+        "type": "object",
+        "required": [
+          "label",
+          "active"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "the label of the payment type"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "indicates whether the payment is active or not"
+          }
+        },
+        "example": {
+          "label": "Payment label example" ,
+          "active": true
+        } 
+      },
+      "CreatePaymentResponse": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrder": {
+        "type": "object",
+        "required": [
+          "items",
+          "addressId",
+          "paymentId"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "description": "all items from order",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "id of the item",
+                  "required": true
+                },
+                "complements": {
+                  "type": "array",
+                  "description": "if the item has complements, they should be here",
+                  "required": false,
+                  "items": {
+                    "type": "object",
+                    "description": "here is the id of the complement group and the chosen items",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "id of the complement group",
+                        "required": true
+                      },
+                      "items": {
+                        "type": "array",
+                        "description": "id's of the chosen items",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "addressId": {
+            "type": "string",
+            "description": "here is the id of the address to be delivered"
+          },
+          "paymentId": {
+            "type": "string",
+            "description": "here is the id of the payment types"
+          }
+        },
+        "example": {
+          "items": [
+            {
+              "id": "63a9adecdaf7efdf35042535",
+              "complements": [
+                  {
+                  "id": "63a9ad2aaadc3c13f2b99476",
+                  "items": [
+                    "63a9aae0aadc3c13f2b99457",
+                    "63a9ab2daadc3c13f2b99459"
+                  ]
+                },
+                {
+                  "id": "63c6a6b0e22534c3807c85db",
+                  "items": [
+                    "63a9ab2daadc3c13f2b99459"
+                  ]
+                },
+                {
+                  "id": "63c19c0bacabdc42e8913608",
+                  "items": [
+                    "63a9aae0aadc3c13f2b99457"
+                  ]
+                },
+                {
+                  "id": "63c6a1ac4a2a29df6e84e77c",
+                  "items": [
+                    "63a9ab2daadc3c13f2b99459"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "63b5c1766d82b760148fd5da"
+            }
+          ],
+          "addressId": "63d8003672815f80c09bff4a",
+          "paymentId": "63eb9d4df8f5f55a85d1dbf1"
+        }
+      },
+      "CreateOrderResponse": {
+        "type": "object",
+        "properties": {
+          "userData": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            }
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object"
+                },
+                "complements": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "complement": {
+                        "type": "object"
+                      },
+                      "selectedItems": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "amount": {
+            "type": "number"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "addressLabel": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "streetName": {
+                "type": "string"
+              },
+              "streetNumber": {
+                "type": "string"
+              }
+            }
+          },
+          "payment": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "active": {
+                "type": "boolean"
+              }
+            }
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "userId": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "history": {
+                "type": "array"
+              }
+            }
+          },
+          "_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchOrder": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": ["Aceito", "Em Preparo", "Aguardando Entregador", "Saiu para Entrega", "Entregue", "Cancelado"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

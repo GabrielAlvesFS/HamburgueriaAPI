@@ -1,13 +1,18 @@
-import express from 'express'
-import {listarItens, listarItemId, cadastrarItem, deletarItem, atualizarItem} from '../controllers/item-controller.js'
+import express from "express";
+import checkAuth from "../middlewares/checkAuth.js";
+import postItem from "../controllers/items/postItemController.js";
+import listItems from "../controllers/items/listItemsController.js";
+import getItem from "../controllers/items/getItemController.js";
+import patchItem from "../controllers/items/patchItemController.js";
+import deleteItem from "../controllers/items/deleteItemController.js";
 
-const router = express.Router()
+const router = express.Router();
 
 router
-    .get('/itens', listarItens)
-    .get('/itens/:id', listarItemId)
-    .post('/itens', cadastrarItem)
-    .delete('/itens/:id', deletarItem)
-    .put('/itens/:id', atualizarItem)
-
-export default router
+    .post("/v1/item", checkAuth("manager"), postItem)
+    .get("/v1/item", listItems)
+    .get("/v1/item/:id", getItem)
+    .patch("/v1/item/:id", checkAuth("manager"), patchItem)
+    .delete("/v1/item/:id", checkAuth("manager"), deleteItem)
+    
+export default router;  

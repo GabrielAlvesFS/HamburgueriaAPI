@@ -5,8 +5,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "start": "node ./src/server.js",
+    "up:dev": "docker-compose up -d mongo",
+    "migrate:mongo:create": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js create",
+    "migrate:mongo:up": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js up",
+    "migrate:mongo:down": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js down",
+    "dev": "nodemon -r dotenv/config ./src/server.js",
+    "start": "node -r dotenv/config ./src/server.js",
     "test": "jest",
     "database": "cd src/database & node create-and-populate.js"
   },
@@ -21,9 +25,17 @@
   },
   "homepage": "https://github.com/GabrielAlvesFS/HamburgueriaAPI#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "sqlite3": "^5.0.11"
+    "jsonwebtoken": "^8.5.1",
+    "migrate-mongo": "^9.0.0",
+    "mongoose": "^6.6.2",
+    "sqlite3": "^5.0.11",
+    "swagger-ui-express": "^4.6.2",
+    "winston": "^3.8.2",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.6",
