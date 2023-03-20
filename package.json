@@ -11,6 +11,7 @@
     "migrate:mongo:down": "node -r dotenv/config ./node_modules/migrate-mongo/bin/migrate-mongo.js down",
     "dev": "nodemon -r dotenv/config ./src/server.js",
     "start": "node -r dotenv/config ./src/server.js",
+    "render": "node ./src/server.js",
     "test": "jest"
   },
   "repository": {
