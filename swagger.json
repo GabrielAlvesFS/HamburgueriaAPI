@@ -8,6 +8,9 @@
   "servers": [
     {
      "url": "http://localhost:3000/v1"
+    },
+    {
+      "url": "https://hamburgueria-rest-api.cyclic.app/v1"
     }
   ],
   "basePath": "/v1",
