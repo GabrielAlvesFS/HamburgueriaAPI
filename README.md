@@ -99,5 +99,5 @@ http://localhost:3000/v1/api-docs/
 
 ```
 
-## Conclusão 
+## ✨ Conclusão 
 Espero que este projeto seja útil para quem deseja ver ou aprender sobre REST API, bancos de dados não relacionais e outras tecnologias utilizadas aqui com o meu projeto. Caso tenha alguma dúvida ou sugestão de melhoria, sinta-se à vontade para entrar em contato. Obrigado!
