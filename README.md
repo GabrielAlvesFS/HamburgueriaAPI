@@ -1,5 +1,5 @@
 
-# Hamburgueria Rest-API :hamburger: 
+# Hamburgueria RESTful-API :hamburger: 
 ## :sparkles: Introdução
 
 Este projeto é a versão 2.0 da minha REST API de hamburgueria. Eu decidi desenvolvê-lo para praticar e aprimorar meus conhecimentos em REST API e também para aprender sobre bancos de dados não relacionais, autenticação com JWT e validação de entrada de dados. Além disso, utilizei o Docker para hospedar o banco de dados e o Winston para fazer o logging de eventos.
